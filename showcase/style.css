@@ -2,6 +2,11 @@
     font-family: "04B_30";
     src: url("../font/04B_30__.woff2");
 }
+@font-face {
+    font-family: "Dogica";
+    src: url("../font/dogica.woff2");
+    font-weight: 400;
+}
 
 /* ===========================
     Main Screen
@@ -36,17 +41,35 @@
     position: absolute;
     right: 44px;
     top: 359px;
-    width: 441px;
-    height: 59px;
-    /* background-color: #1d4c90; */
-    border: 2px solid #1d4c90;
 }
 .statistics-header {
+    width: 441px;
+    height: 59px;
     font-size: 24px;
     color: white;
     font-family: "04B_30";
+    background-color: #1d4c90;
+    border: 2px solid #1d4c90;
 }
 .statistics-header div {
     padding-left: 28px;
     padding-top: 24px;
 }
+.statistics-body {
+    border: 2px solid #52545A;
+    border-top: 0px;
+    width: 441px;
+    height: 29px;
+    font-size: 14px;
+    font-family: "Dogica";
+    font-weight: 400;
+    line-height: 29px;
+    display: flex;
+    background-color: #26272B;
+}
+.statistics-body-title {
+    margin-left: 27px;
+    width: 148px;
+    color: white;
+}
+.statistics-body-data { color: #f4e662; }
