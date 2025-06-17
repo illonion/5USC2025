@@ -7,13 +7,15 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="../_shared/deps/reconnecting-websocket.min.js"></script>
     <script src="../_shared/utils.js"></script>
 </head>
 <body>
     <div class="main">
+        
         <!-- Title -->
-        <div class="title">QUALIFIER SHOWCASE</div>
+        <div class="title" id="title">QUALIFIER SHOWCASE</div>
 
         <!-- Now Playing -->
         <iframe class="now-playing-iframe" id="now-playing-iframe" src="../now-playing/" title="Now Playing"></iframe>
@@ -23,40 +25,40 @@
             <div class="statistics-header"><div>STATISTICS</div></div>
             <div class="statistics-body">
                 <div class="statistics-body-title">MAPPER</div>
-                <div class="statistics-body-data">SHWAERKBILATHON</div>
+                <div class="statistics-body-data" id="statistics-body-mapper">SHWAERKBILATHON</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">STAR*</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-star">999</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">LENGTH</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-length">999</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">BPM</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-bpm">999</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">AR</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-ar">999</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">CS</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-cs">999</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">HP</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-hp">999</div>
             </div>
             <div class="statistics-body">
                 <div class="statistics-body-title">OD</div>
-                <div class="statistics-body-data">999</div>
+                <div class="statistics-body-data" id="statistics-body-od">999</div>
             </div>
         </section>
 
         <!-- Replayer -->
-        <div class="replayer">REPLAY BY <span id="replayer-name">SHWAERKBILATHON</span></div>
+        <div class="replayer" id="replayer">REPLAY BY <span id="replayer-name">SHWAERKBILATHON</span></div>
     </div>
 
     <script src="index.js"></script>
