@@ -1,0 +1,61 @@
+@font-face {
+    font-family: "Dogica";
+    src: url("../font/dogica.woff2");
+    font-weight: 400;
+}
+
+.now-playing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 497px;
+    height: 97px;
+    background-image: url("static/now-playing-background.png");
+    background-size: cover;
+}
+
+.title {
+    line-height: 32px;
+    font-size: 18px;
+    color: #f4e662;
+    font-family: "Dogica";
+    font-weight: 400;
+    margin-left: 15px;
+    width: 263px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: hidden;
+}
+
+.song-banner {
+    position: absolute;
+    top: calc(65px / 2 + 32px);
+    left: 15px;
+    transform: translateY(-50%);
+    width: 62px;
+    height: 39px;
+    background-color: white;
+}
+
+.song-metadata {
+    position: absolute;
+    top: calc(65px / 2 + 32px);
+    left: 90px;
+    transform: translateY(-50%);
+    font-size: 17px;
+    color: #f2f2f2;
+    font-family: "Dogica";
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.song-metadata > * {
+    letter-spacing: -2px;
+    width: 390px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-artist { color: #8a8b8e; }
