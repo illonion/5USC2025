@@ -4,6 +4,16 @@
     left: 0;
     width: 1920px;
     height: 1080px;
-    background-image: url("static/image.png");
+    background-image: url("static/background.png");
     background-size: cover;
+}
+
+#now-playing-iframe {
+    position: absolute;
+    top: 237px;
+    right: 37px;
+    width: 498px;
+    height: 97px;
+    border: none;
+    overflow: hidden;
 }
