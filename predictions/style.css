@@ -1,11 +1,15 @@
+/* ===========================
+   Background
+=========================== */
 .background {
     position: absolute;
     width: 1920px;
     height: 1080px;
-    background-image: url("image.webp");
-    background-size: cover;
 }
 
+/* ===========================
+   Now Playing Iframe
+=========================== */
 .now-playing-iframe {
     position: absolute;
     bottom: 10px;

@@ -1,17 +1,52 @@
+@font-face {
+    font-family: "04B_30";
+    src: url("../font/04B_30__.woff2");
+}
+
+/* ===========================
+    Main Screen
+=========================== */
 .main {
     position: absolute;
     top: 0;
     left: 0;
     width: 1920px;
     height: 1080px;
+    background-image: url("static/background.png");
+    background-size: cover;
 }
 
+/* ===========================
+    Now Playing Iframe
+=========================== */
 .now-playing-iframe {
     position: absolute;
-    bottom: 35px;
-    left: 126px;
+    top: 237px;
+    right: 37px;
     width: 498px;
     height: 97px;
     border: none;
     overflow: hidden;
+}
+
+/* ===========================
+    Statitics Table
+=========================== */
+.statistics-table {
+    position: absolute;
+    right: 44px;
+    top: 359px;
+    width: 441px;
+    height: 59px;
+    /* background-color: #1d4c90; */
+    border: 2px solid #1d4c90;
+}
+.statistics-header {
+    font-size: 24px;
+    color: white;
+    font-family: "04B_30";
+}
+.statistics-header div {
+    padding-left: 28px;
+    padding-top: 24px;
 }
