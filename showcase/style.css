@@ -22,6 +22,18 @@
 }
 
 /* ===========================
+    Greenscreen
+=========================== */
+.greenscreen {
+    position: absolute;
+    top: 192px;
+    left: 69px;
+    background-color: #0F0;
+    width: 1460px;
+    height: 818px;
+}
+
+/* ===========================
     Title
 =========================== */
 .title {
@@ -95,6 +107,11 @@
 /* ===========================
     Replayer
 =========================== */
+.replayer-frame {
+    position: absolute;
+    bottom: 295px;
+    right: 56px;
+}
 .replayer {
     position: absolute;
     bottom: 357px;
