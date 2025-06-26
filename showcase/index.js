@@ -36,6 +36,7 @@ const replayerNameEl = document.getElementById("replayer-name")
 let replayerName
 
 // Socket
+let currentMappoolBeatmap
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     // Get data
@@ -46,8 +47,8 @@ socket.onmessage = event => {
         mapId = data.beatmap.id
         mapMd5 = data.beatmap.checksum
 
-        const mappoolBeatmap = findBeatmaps(mapId)
-        if (mappoolBeatmap) {
+        currentMappoolBeatmap = findBeatmaps(mapId)
+        if (currentMappoolBeatmap) {
             nowPlayingIframeDocumentTitleEl.textContent = `${mappoolBeatmap.mod}${mappoolBeatmap.order}`
         } else {
             nowPlayingIframeDocumentTitleEl.textContent = "NOW PLAYING"
@@ -65,7 +66,9 @@ socket.onmessage = event => {
     }
     if (songLength !== data.beatmap.time.lastObject - data.beatmap.time.firstObject) {
         songLength = data.beatmap.time.lastObject - data.beatmap.time.firstObject
-        statisticsBodyLengthEl.textContent = setLengthDisplay(Math.round(songLength / 3 * 2 / 1000))
+        if (currentMappoolBeatmap && currentMappoolBeatmap.mod === "DT") songLength /= 1.5
+        songLength = Math.round(songLength / 1000)
+        statisticsBodyLengthEl.textContent = setLengthDisplay(songLength)
     }
     if (bpm !== data.beatmap.stats.bpm.common) {
         bpm = data.beatmap.stats.bpm.common
