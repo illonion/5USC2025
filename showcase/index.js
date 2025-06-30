@@ -7,7 +7,7 @@ async function getBeatmaps() {
     titleEl.textContent = `${response.data.roundName} SHOWCASE`
 }
 getBeatmaps()
-const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.beatmap_id) === Number(beatmapId))
+const findBeatmaps = beatmapString => allBeatmaps.find(beatmap => beatmap.beatmap_string === beatmapString)
 
 // Iframe information
 const nowPlayingIframeEl = document.getElementById("now-playing-iframe")
@@ -47,9 +47,9 @@ socket.onmessage = event => {
         mapId = data.beatmap.id
         mapMd5 = data.beatmap.checksum
 
-        currentMappoolBeatmap = findBeatmaps(mapId)
+        currentMappoolBeatmap = findBeatmaps(`${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`)
         if (currentMappoolBeatmap) {
-            nowPlayingIframeDocumentTitleEl.textContent = `${mappoolBeatmap.mod}${mappoolBeatmap.order}`
+            nowPlayingIframeDocumentTitleEl.textContent = `${currentMappoolBeatmap.mod}${currentMappoolBeatmap.mod !== "TB"? currentMappoolBeatmap.order : ""}`
         } else {
             nowPlayingIframeDocumentTitleEl.textContent = "NOW PLAYING"
         }

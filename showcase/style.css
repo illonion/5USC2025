@@ -50,7 +50,7 @@
 =========================== */
 .now-playing-iframe {
     position: absolute;
-    top: 237px;
+    top: 359px;
     right: 37px;
     width: 498px;
     height: 97px;
@@ -64,7 +64,7 @@
 .statistics-table {
     position: absolute;
     right: 44px;
-    top: 359px;
+    top: 481px;
 }
 /* ===========================
     Statitics Header
@@ -109,12 +109,12 @@
 =========================== */
 .replayer-frame {
     position: absolute;
-    bottom: 295px;
+    bottom: 173px;
     right: 56px;
 }
 .replayer {
     position: absolute;
-    bottom: 357px;
+    bottom: 235px;
     right: 81px;
     font-size: 14px;
     font-family: "Dogica";
