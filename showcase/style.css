@@ -13,17 +13,6 @@
 }
 
 /* ===========================
-    Main Screen
-=========================== */
-.main {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1920px;
-    height: 1080px;
-}
-
-/* ===========================
     Greenscreen
 =========================== */
 .greenscreen {
