@@ -1,11 +1,24 @@
+:root {
+    --left-alignment: 69px;
+}
+
 @font-face {
     font-family: "04B_30";
-    src: url("../font/04B_30__.woff2");
+    src: url("../../font/04B_30__.woff2");
 }
 @font-face {
     font-family: "Dogica";
-    src: url("../font/dogica.woff2");
+    src: url("../../font/dogica.woff2");
     font-weight: 400;
+}
+
+/* ===========================
+    Video
+=========================== */
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* ===========================
@@ -17,8 +30,6 @@
     left: 0;
     width: 1920px;
     height: 1080px;
-    background-image: url("static/background.png");
-    background-size: cover;
 }
 
 /* ===========================
@@ -27,10 +38,19 @@
 .greenscreen {
     position: absolute;
     top: 192px;
-    left: 69px;
+    left: var(--left-alignment);
     background-color: #0F0;
     width: 1460px;
     height: 818px;
+}
+
+/* ===========================
+    Logo
+=========================== */
+.logo {
+    position: absolute;
+    top: var(--left-alignment);
+    left: var(--left-alignment);
 }
 
 /* ===========================
@@ -39,7 +59,7 @@
 .title {
     position: absolute;
     top: 143px;
-    left: 64px;
+    left: var(--left-alignment);
     font-size: 24px;
     color: white;
     font-family: "Dogica";
