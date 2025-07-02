@@ -1,4 +1,19 @@
+:root {
+    --team-flag-horizontal-alignment: 16px;
+}
+
 .main {
     background-image: url("static/background.png");
     background-size: cover;
 }
+
+/* ===========================
+   Team Flag
+=========================== */
+.team-flag {
+    position: absolute;
+    top: 30px;
+    height: 93px;
+}
+.left-team-flag { left: var(--team-flag-horizontal-alignment); }
+.right-team-flag { right: var(--team-flag-horizontal-alignment); }
