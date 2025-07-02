@@ -1,5 +1,16 @@
+@font-face {
+    font-family: "04B_30";
+    src: url("../../font/04B_30__.woff2");
+}
+@font-face {
+    font-family: "Dogica";
+    src: url("../../font/dogica.woff2");
+    font-weight: 400;
+}
+
 :root {
     --team-flag-horizontal-alignment: 16px;
+    --team-name-horizontal-alignment: 188px;
 }
 
 .main {
@@ -17,3 +28,16 @@
 }
 .left-team-flag { left: var(--team-flag-horizontal-alignment); }
 .right-team-flag { right: var(--team-flag-horizontal-alignment); }
+
+/* ===========================
+   Team Name
+=========================== */
+.team-name {
+    position: absolute;
+    top: 30px;
+    font-family: "Dogica";
+    color: white;
+    font-size: 26px;
+}
+.left-team-name { left: var(--team-name-horizontal-alignment); }
+.right-team-name { right: var(--team-name-horizontal-alignment); }
