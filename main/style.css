@@ -66,3 +66,21 @@
 }
 .team-star:nth-child(odd) { align-items: flex-end; }
 .team-star:nth-child(even) {  align-items: flex-start; }
+
+/* ===========================
+   Middle Section 
+=========================== */
+.middle-section {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.logo { top: 41px; }
+.title { top: 257px; }
+.round-name {
+    top: 354px;
+    font-family: "Dogica";
+    color: white;
+    font-size: 25px;
+    letter-spacing: 2px;
+}
