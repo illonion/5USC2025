@@ -10,7 +10,9 @@
 
 :root {
     --team-flag-horizontal-alignment: 16px;
-    --team-name-horizontal-alignment: 188px;
+    --team-details-horizontal-alignment: 188px;
+    --greenscreen-player-1-4-top: 143px;
+    --greenscreen-height: 360px;
 }
 
 .main {
@@ -39,8 +41,8 @@
     color: white;
     font-size: 26px;
 }
-.left-team-name { left: var(--team-name-horizontal-alignment); }
-.right-team-name { right: var(--team-name-horizontal-alignment); }
+.left-team-name { left: var(--team-details-horizontal-alignment); }
+.right-team-name { right: var(--team-details-horizontal-alignment); }
 
 /* ===========================
    Team Stars Container 
@@ -52,9 +54,9 @@
     height: 59px;
     gap: 13.5px;
 }
-.left-team-star-container { left: var(--team-name-horizontal-alignment); }
+.left-team-star-container { left: var(--team-details-horizontal-alignment); }
 .right-team-star-container {
-    right: var(--team-name-horizontal-alignment);
+    right: var(--team-details-horizontal-alignment);
     flex-direction: row-reverse;
 }
 /* ===========================
@@ -83,4 +85,22 @@
     color: white;
     font-size: 25px;
     letter-spacing: 2px;
+}
+
+/* ===========================
+   Greenscreens
+=========================== */
+.greenscreen {
+    position: absolute;
+    height: var(--greenscreen-height);
+    background-color: #0F0;
+}
+.greenscreen-player-1, .greenscreen-player-4 {
+    top: var(--greenscreen-player-1-4-top);
+    width: 480px;
+}
+.greenscreen-player-4 { right: 0;}
+.greenscreen-bottom-row {
+    top: calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height));
+    width: 1920px;
 }
