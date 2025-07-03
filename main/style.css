@@ -41,3 +41,28 @@
 }
 .left-team-name { left: var(--team-name-horizontal-alignment); }
 .right-team-name { right: var(--team-name-horizontal-alignment); }
+
+/* ===========================
+   Team Stars Container 
+=========================== */
+.team-star-container {
+    position: absolute;
+    top: 66px;
+    display: flex;
+    height: 59px;
+    gap: 13.5px;
+}
+.left-team-star-container { left: var(--team-name-horizontal-alignment); }
+.right-team-star-container {
+    right: var(--team-name-horizontal-alignment);
+    flex-direction: row-reverse;
+}
+/* ===========================
+   Team Stars
+=========================== */
+.team-star {
+    display: flex;
+    align-items: center;
+}
+.team-star:nth-child(odd) { align-items: flex-end; }
+.team-star:nth-child(even) {  align-items: flex-start; }
