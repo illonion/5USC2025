@@ -10,6 +10,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    font-family: "Dogica";
 }
 
 /* ===========================
@@ -56,7 +57,6 @@
    Now Playing Container 
 =========================== */
 .now-playing-container {
-    font-family: "Dogica";
     background-image: url("https://assets.ppy.sh/beatmaps/2296526/covers/cover.jpg");
     background-size: cover;
     background-position: center;
@@ -91,4 +91,21 @@
 .now-playing-song-title {
     bottom: 40px;
     color: white;
+}
+
+/* ===========================
+   Live Chat Container 
+=========================== */
+.live-chat-container {
+    overflow: hidden;
+}
+.live-chat-container::-webkit-scrollbar { 
+    display: none;
+    scroll-behavior: smooth;
+}
+.live-chat-wrapper {
+    color: white;
+    line-height: 22.5px;
+    margin-left: 10px;
+    font-size: 0.75em;
 }
