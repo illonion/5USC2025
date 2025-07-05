@@ -19,7 +19,12 @@
     --middle-now-playing-top-section-padding-left: 30px;
     --middle-now-playing-bottom-section-height: calc(var(--middle-now-playing-section-height) - var(--middle-now-playing-top-section-height) - 1px);
     --middle-now-playing-bottom-section-details: 17px;
-    --middle-now-playing-bottom-section-horizontal-alignment: calc(var(--middle-now-playing-top-section-padding-left) - var(--middle-now-playing-bottom-section-details))
+    --middle-now-playing-bottom-section-horizontal-alignment: calc(var(--middle-now-playing-top-section-padding-left) - var(--middle-now-playing-bottom-section-details));
+    --score-colour-left: #DD5E5E;
+    --score-colour-right: #245FB3;
+    --score-horizontal-alignment: 440px;
+    --score-line-horizontal-alignment: 288px;
+    
 }
 
 .main {
@@ -221,3 +226,65 @@
     font-size: 14px;
 }
 .wide { grid-column: span 3; }
+
+/* ===========================
+   Scores
+=========================== */
+.score {
+    position: absolute;
+    top: 894px;
+    font-family: "Dogica";
+    font-size: 31px;
+    letter-spacing: 1px;
+}
+.score-left {
+    left: var(--score-horizontal-alignment);
+    transform: translateX(-50%);
+    color: var(--score-colour-left);
+}
+.score-right {
+    right: var(--score-horizontal-alignment);
+    transform: translateX(50%);
+    color: var(--score-colour-right);
+}
+/* ===========================
+   Score Lines
+=========================== */
+.score-line {
+    position: absolute;
+    top: 939px;
+    width: 297px;
+    height: 6px;
+}
+.score-line-left {
+    left: var(--score-line-horizontal-alignment);
+    background-color: var(--score-colour-left);
+}
+.score-line-right {
+    right: var(--score-line-horizontal-alignment);
+    background-color: var(--score-colour-right);
+}
+/* ===========================
+   Score Difference
+=========================== */
+.score-difference {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #8A8B8E;
+}
+.score-difference-number { font-size: 32px; }
+.score-difference-text {
+    top: 940px;
+    font-family: "Dogica";
+    font-size: 20px;
+}
+
+/* ===========================
+    Bottom Left Image
+=========================== */
+.bottom-left-image {
+    position: absolute;
+    left: -48px;
+    bottom: -67px;
+}
