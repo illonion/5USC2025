@@ -1,0 +1,94 @@
+@font-face {
+    font-family: "Dogica";
+    src: url("../../font/dogica.woff2");
+    font-weight: 400;
+}
+/* ===========================
+   Main
+=========================== */
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ===========================
+   Titles
+=========================== */
+.titles {
+    display: flex;
+    height: 48px;
+}
+.titles > * {
+    width: 630px    ;
+    color: white;
+    line-height: 48px;
+    padding-left: 10px;
+    font-family: "Dogica";
+    font-size: 0.75em;
+}
+
+/* ===========================
+   Title Backgrounds
+=========================== */
+.now-playing-title { background-color: #53555b; }
+.live-chat-title { background-color: #1d4c90; }
+.casters-title { background-color: #75292d; }
+
+/* ===========================
+   Containers
+=========================== */
+.containers {
+    position: absolute;
+    top: 58px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 1920px;
+}
+.containers > * {
+    position: relative;
+    width: 630px;
+    height: 126px;
+    background-color: #2a2c30
+}
+
+/* ===========================
+   Now Playing Container 
+=========================== */
+.now-playing-container {
+    font-family: "Dogica";
+    background-image: url("https://assets.ppy.sh/beatmaps/2296526/covers/cover.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.now-playing-container > * { position: absolute; }
+/* ===========================
+   Now Playing Overlay 
+=========================== */
+.now-playing-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #27282CC0;
+}
+/* ===========================
+   Now Playing Text 
+=========================== */
+.now-playing-text { 
+    left: 20px;
+    width: calc(630px - (20 * 2));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.now-playing-mod-id {
+    top: 20px;
+    color: white;
+}
+.now-playing-song-artist {
+    bottom: 20px;
+    color: #8a8b8e;
+}
+.now-playing-song-title {
+    bottom: 40px;
+    color: white;
+}
