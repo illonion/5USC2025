@@ -16,7 +16,10 @@
     --greenscreen-one-player-width: 480px;
     --middle-now-playing-section-height: 152px;
     --middle-now-playing-top-section-height: 34px;
+    --middle-now-playing-top-section-padding-left: 30px;
     --middle-now-playing-bottom-section-height: calc(var(--middle-now-playing-section-height) - var(--middle-now-playing-top-section-height) - 1px);
+    --middle-now-playing-bottom-section-details: 17px;
+    --middle-now-playing-bottom-section-horizontal-alignment: calc(var(--middle-now-playing-top-section-padding-left) - var(--middle-now-playing-bottom-section-details))
 }
 
 .main {
@@ -121,27 +124,49 @@
     position: absolute;
     width: 100%;
 }
+
+/* ===========================
+   Now Playing Top Section
+=========================== */
 .now-playing-top-section {
     height: var(--middle-now-playing-top-section-height);
     background-color: #53555B;
+    color: white;
+    font-family: "Dogica";
+    font-size: 1.25em;
+    line-height: var(--middle-now-playing-top-section-height);
+    padding-left: var(--middle-now-playing-top-section-padding-left);
+    width: calc(100% - var(--middle-now-playing-top-section-padding-left));
 }
+
+/* ===========================
+   Now Playing Line Break
+=========================== */
 .now-playing-line-break {
     top: var(--middle-now-playing-top-section-height);
     height: 1px;
     background-color: #3D3F44
 }
+
+/* ===========================
+   Now Playing Bottom Section
+=========================== */
 .now-playing-bottom-section {
     top: calc(var(--middle-now-playing-top-section-height) + 1px);
     height: var(--middle-now-playing-bottom-section-height);
     background-color: #27282C;
 }
+
+/* ===========================
+   Now Playing Details
+=========================== */
 .now-playing-bottom-section-details {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    width: calc(100% - 34px);
+    width: calc(100% - var(--middle-now-playing-bottom-section-details) * 2);
     height: calc(100% - 24px);
     background-image: url("https://assets.ppy.sh/beatmaps/2251201/covers/cover.jpg");
     background-size: cover;
@@ -149,7 +174,50 @@
 }
 .now-playing-bottom-section-overlay {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: #27282CF0;
 }
+/* ===========================
+   Now Playing Left
+=========================== */
+.now-playing-bottom-section-left {
+    position: absolute;
+    left: var(--middle-now-playing-bottom-section-horizontal-alignment);
+    font-family: "Dogica";
+    font-size: 1.1em;
+}
+.now-playing-bottom-section-song-title {
+    top: 45%;
+    transform: translateY(-100%);
+    color: white;
+}
+.now-playing-bottom-section-song-artist {
+    bottom: 45%;
+    transform: translateY(100%);
+    color: #868789;
+}
+/* ===========================
+   Now Playing Stats
+=========================== */
+.now-playing-bottom-section-stats {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--middle-now-playing-bottom-section-horizontal-alignment);
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    width: 485px;
+    font-family: "Dogica";
+}
+.stats-item {
+    height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: #868789;
+    font-size: 14px;
+}
+.wide { grid-column: span 3; }
