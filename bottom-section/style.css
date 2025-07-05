@@ -109,3 +109,8 @@
     margin-left: 10px;
     font-size: 0.75em;
 }
+
+.bot { color: lightgreen; }
+.unknown { color: yellow; }
+.left { color: #DD5E5E; }
+.right { color: #3388ff; }
