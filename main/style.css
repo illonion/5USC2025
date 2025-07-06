@@ -1,10 +1,10 @@
 @font-face {
     font-family: "04B_30";
-    src: url("../../font/04B_30__.woff2");
+    src: url("../font/04B_30__.woff2");
 }
 @font-face {
     font-family: "Dogica";
-    src: url("../../font/dogica.woff2");
+    src: url("../font/dogica.woff2");
     font-weight: 400;
 }
 
@@ -24,11 +24,6 @@
     --score-colour-right: #245FB3;
     --score-horizontal-alignment: 440px;
     --score-line-horizontal-alignment: 288px;
-}
-
-.main {
-    background-image: url("static/background.png");
-    background-size: cover;
 }
 
 /* ===========================
