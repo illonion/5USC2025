@@ -14,24 +14,22 @@ socket.onmessage = event => {
     // Team information
     if (currentLeftTeamName !== data.tourney.team.left) {
         currentLeftTeamName = data.tourney.team.left
-        leftTeamNameEl.textContent = currentLeftTeamName
-
-        // Set team flag
-        leftTeamFlagEl.setAttribute("src", `../flags/${currentLeftTeamName}.png`)
-        leftTeamFlagEl.onerror = () => {
-            leftTeamFlagEl.onerror = null
-            leftTeamFlagEl.src = "../flags/transparent.png"
-        }
+        setFlagAndTeamName(currentLeftTeamName, leftTeamNameEl, leftTeamFlagEl)
     }
     if (currentRightTeamName !== data.tourney.team.right) {
         currentRightTeamName = data.tourney.team.right
-        rightTeamNameEl.textContent = currentRightTeamName
+        setFlagAndTeamName(currentRightTeamName, rightTeamNameEl, rightTeamFlagEl)
+    }
+}
 
-        // Set team flag
-        rightTeamFlagEl.setAttribute("src", `../flags/${currentRightTeamName}.png`)
-            rightTeamFlagEl.onerror = () => {
-            rightTeamFlagEl.onerror = null
-            rightTeamFlagEl.src = "../flags/transparent.png"
-        }
+// Set flag and team name
+function setFlagAndTeamName(teamName, teamNameElement, teamFlagElement) {
+    teamNameElement.textContent = teamName
+
+    // Set team flag
+    teamFlagElement.setAttribute("src", `../flags/${teamName}.png`)
+    teamFlagElement.onerror = () => {
+        teamFlagElement.onerror = null
+        teamFlagElement.src = "../flags/transparent.png"
     }
 }
