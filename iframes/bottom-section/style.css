@@ -68,7 +68,7 @@
 .now-playing-overlay {
     width: 100%;
     height: 100%;
-    background-color: #27282CC0;
+    background-color: #27282CD0;
 }
 /* ===========================
    Now Playing Text 
@@ -111,7 +111,7 @@
 /* ===========================
    Live Chat Colours 
 =========================== */
-.bot { color: lightgreen; }
+.bot { color: pink; }
 .unknown { color: yellow; }
 .left { color: #DD5E5E; }
 .right { color: #3388ff; }
