@@ -89,7 +89,7 @@ socket.onmessage = event => {
         if (currentBeatmap) {
             nowPlayingTopSectionEl.textContent = `${currentBeatmap.mod.toUpperCase()}${currentBeatmap.order}`
             let sr = Math.round(Number(currentBeatmap.difficultyrating) * 100) / 100
-            let len = setLengthDisplay(Number(currentBeatmap.total_length))
+            let len = Number(currentBeatmap.total_length)
             let ar = Math.round(Number(currentBeatmap.diff_approach) * 10) / 10
             let hp = Math.round(Number(currentBeatmap.diff_drain) * 10) / 10
             let bpm = Math.round(Number(currentBeatmap.bpm) * 10) / 10
@@ -137,7 +137,7 @@ socket.onmessage = event => {
     let currentScoreLeft = 0, currentScoreRight = 0
     for (let i = 0; i < data.tourney.clients.length; i++) {
         let currentScore = data.tourney.clients[i].play.score
-        if (currentBeatmap && currentBeatmap.EZMultiplier) currentScore *= currentBeatmap.EZMultiplier
+        if (currentBeatmap && currentBeatmap.EZMultiplier && data.tourney.clients[i].play.mods.name.includes("EZ")) currentScore *= currentBeatmap.EZMultiplier
         if (data.tourney.clients[i].team === "left") currentScoreLeft += currentScore
         else currentScoreRight += currentScore
     }
@@ -163,7 +163,7 @@ socket.onmessage = event => {
 
         if (scoreVisible) {
             titleEl.style.top = "237px"
-            roundNameEl.style.top = "314px"
+            roundNameEl.style.top = "310px"
             nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height) - var(--middle-now-playing-section-height))`
             scoresContainerEl.style.top = "0px"
             iframe.style.bottom = "-263px"

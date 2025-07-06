@@ -89,7 +89,7 @@
     transition: 500ms ease-in-out;
 }
 .round-name {
-    top: 314px;
+    top: 310px;
     font-family: "Dogica";
     color: white;
     font-size: 25px;
@@ -228,6 +228,9 @@
     text-align: left;
     color: #868789;
     font-size: 14px;
+}
+.stats-number {
+    margin-left: 5px;
 }
 .wide { grid-column: span 3; }
 
