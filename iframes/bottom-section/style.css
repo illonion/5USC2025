@@ -75,7 +75,7 @@
 =========================== */
 .now-playing-text { 
     left: 20px;
-    width: calc(630px - (20 * 2));
+    width: calc(630px - (20px * 2));
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -98,11 +98,9 @@
 =========================== */
 .live-chat-container {
     overflow: hidden;
-}
-.live-chat-container::-webkit-scrollbar { 
-    display: none;
     scroll-behavior: smooth;
 }
+.live-chat-container::-webkit-scrollbar {  display: none; }
 .live-chat-wrapper {
     color: white;
     line-height: 22.5px;
@@ -110,6 +108,9 @@
     font-size: 0.75em;
 }
 
+/* ===========================
+   Live Chat Colours 
+=========================== */
 .bot { color: lightgreen; }
 .unknown { color: yellow; }
 .left { color: #DD5E5E; }
