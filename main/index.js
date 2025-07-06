@@ -22,6 +22,7 @@ const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.bea
 // Now Playing Information
 const nowPlayingSectionEl = document.getElementById("now-playing-section")
 const nowPlayingTopSectionEl = document.getElementById("now-playing-top-section")
+const nowPlayingBottomSectionDetailsEl = document.getElementById("now-playing-bottom-section-details")
 const nowPlayingSongTitleEl = document.getElementById("now-playing-song-title")
 const nowPlayingSongArtistEl = document.getElementById("now-playing-song-artist")
 // Stats
@@ -75,6 +76,7 @@ socket.onmessage = event => {
         currentChecksum = data.beatmap.checksum
         mapFound = false
 
+        nowPlayingBottomSectionDetailsEl.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${data.beatmap.set}/covers/cover.jpg")`
         nowPlayingSongTitleEl.textContent = data.beatmap.title
         nowPlayingSongArtistEl.textContent = data.beatmap.artist
     
