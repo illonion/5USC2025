@@ -187,6 +187,10 @@
     left: var(--middle-now-playing-bottom-section-horizontal-alignment);
     font-family: "Dogica";
     font-size: 1.1em;
+    white-space: nowrap;
+    width: 405px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .now-playing-bottom-section-song-title {
     top: 45%;

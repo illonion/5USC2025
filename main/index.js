@@ -18,6 +18,21 @@ getBeatmaps()
 // Find Beatmaps
 const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.beatmap_id) === Number(beatmapId))
 
+// Now Playing Information
+const nowPlayingTopSectionEl = document.getElementById("now-playing-top-section")
+const nowPlayingSongTitleEl = document.getElementById("now-playing-song-title")
+const nowPlayingSongArtistEl = document.getElementById("now-playing-song-artist")
+// Stats
+const statsSrEl = document.getElementById("stats-sr")
+const statsLengthEl = document.getElementById("stats-length")
+const statsArEl = document.getElementById("stats-ar")
+const statsHpEl = document.getElementById("stats-hp")
+const statsBpmEl = document.getElementById("stats-bpm")
+const statsCsEl = document.getElementById("stats-cs")
+const statsOdEl = document.getElementById("stats-od")
+// Variables
+let currentId, currentChecksum, mapFound = false
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -33,6 +48,63 @@ socket.onmessage = event => {
         currentRightTeamName = data.tourney.team.right
         setFlagAndTeamName(currentRightTeamName, rightTeamNameEl, rightTeamFlagEl)
     }
+
+    // Now Playing Information
+    if (currentId !== data.beatmap.id || currentChecksum !== data.beatmap.checksum) {
+        currentId = data.beatmap.id
+        currentChecksum = data.beatmap.checksum
+        mapFound = false
+
+        nowPlayingSongTitleEl.textContent = data.beatmap.title
+        nowPlayingSongArtistEl.textContent = data.beatmap.artist
+    
+        const currentBeatmap = findBeatmaps(currentId)
+        if (currentBeatmap) {
+            nowPlayingTopSectionEl.textContent = `${currentBeatmap.mod.toUpperCase()}${currentBeatmap.order}`
+            let sr = Math.round(Number(currentBeatmap.difficultyrating) * 100) / 100
+            let len = setLengthDisplay(Number(currentBeatmap.total_length))
+            let ar = Math.round(Number(currentBeatmap.diff_approach) * 10) / 10
+            let hp = Math.round(Number(currentBeatmap.diff_drain) * 10) / 10
+            let bpm = Math.round(Number(currentBeatmap.bpm) * 10) / 10
+            let cs = Math.round(Number(currentBeatmap.diff_size) * 10) / 10
+            let od = Math.round(Number(currentBeatmap.diff_overall) * 10) / 10
+
+            switch (currentBeatmap.mod) {
+                case "HR":
+                    cs = Math.min(Math.round(cs * 1.3 * 10) / 10, 10)
+                    ar = Math.min(Math.round(ar * 1.4 * 10) / 10, 10)
+                    hp = Math.min(Math.round(hp * 1.4 * 10) / 10, 10)
+                    od = Math.min(Math.round(od * 1.4 * 10) / 10, 10)
+                case "DT":
+                    if (ar > 5) ar = Math.round((((1200 - (( 1200 - (ar - 5) * 150) * 2 / 3)) / 150) + 5) * 10) / 10
+                    else ar = Math.round((1800 - ((1800 - ar * 120) * 2 / 3)) / 120 * 10) / 10
+                    od = Math.round((79.5 - (( 79.5 - 6 * od) * 2 / 3)) / 6 * 10) / 10
+                    bpm = Math.round(bpm * 1.5)
+                    len = Math.round(len / 1.5)
+            }
+
+            statsSrEl.textContent = `${sr}*`
+            statsLengthEl.textContent = setLengthDisplay(len)
+            statsArEl.textContent = ar
+            statsHpEl.textContent = hp
+            statsBpmEl.textContent = bpm
+            statsCsEl.textContent = cs
+            statsOdEl.textContent = od
+            mapFound = true
+        } else {
+            nowPlayingTopSectionEl.textContent = "NOW PLAYING"
+        }
+    }
+
+    if (!mapFound) {
+        statsSrEl.textContent = `${data.beatmap.stats.stars.total}*`
+        statsLengthEl.textContent = setLengthDisplay(Math.round((data.beatmap.time.lastObject - data.beatmap.time.firstObject) / 1000))
+        statsArEl.textContent = data.beatmap.stats.ar.converted
+        statsHpEl.textContent = data.beatmap.stats.hp.converted
+        statsBpmEl.textContent = data.beatmap.stats.bpm.common
+        statsCsEl.textContent = data.beatmap.stats.cs.converted
+        statsOdEl.textContent = data.beatmap.stats.od.converted
+    }
 }
 
 // Set flag and team name
@@ -45,4 +117,12 @@ function setFlagAndTeamName(teamName, teamNameElement, teamFlagElement) {
         teamFlagElement.onerror = null
         teamFlagElement.src = "../flags/transparent.png"
     }
+}
+
+// Set Length Display
+function setLengthDisplay(seconds) {
+    const minuteCount = Math.floor(seconds / 60)
+    const secondCount = seconds % 60
+
+    return `${minuteCount.toString().padStart(2, "0")}:${secondCount.toString().padStart(2, "0")}`
 }
