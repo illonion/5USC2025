@@ -31,7 +31,21 @@ const statsBpmEl = document.getElementById("stats-bpm")
 const statsCsEl = document.getElementById("stats-cs")
 const statsOdEl = document.getElementById("stats-od")
 // Variables
-let currentId, currentChecksum, mapFound = false
+let currentId, currentChecksum, mapFound = false, currentBeatmap
+
+// Scores
+const scoreLeftEl = document.getElementById("score-left")
+const scoreRightEl = document.getElementById("score-right")
+const scoreDifferenceNumberEl = document.getElementById("score-difference-number")
+const animation = {
+    "scoreLeft": new CountUp(scoreLeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "scoreRight": new CountUp(scoreRightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "scoreDifferenceNumber": new CountUp(scoreDifferenceNumberEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+}
+let scoreVisible = true
+// Score lines
+const scoreLineLeftEl = document.getElementById("score-line-left")
+const scoreLineRightEl = document.getElementById("score-line-right")
 
 // Socket
 const socket = createTosuWsSocket()
@@ -58,7 +72,7 @@ socket.onmessage = event => {
         nowPlayingSongTitleEl.textContent = data.beatmap.title
         nowPlayingSongArtistEl.textContent = data.beatmap.artist
     
-        const currentBeatmap = findBeatmaps(currentId)
+        currentBeatmap = findBeatmaps(currentId)
         if (currentBeatmap) {
             nowPlayingTopSectionEl.textContent = `${currentBeatmap.mod.toUpperCase()}${currentBeatmap.order}`
             let sr = Math.round(Number(currentBeatmap.difficultyrating) * 100) / 100
@@ -104,6 +118,30 @@ socket.onmessage = event => {
         statsBpmEl.textContent = data.beatmap.stats.bpm.common
         statsCsEl.textContent = data.beatmap.stats.cs.converted
         statsOdEl.textContent = data.beatmap.stats.od.converted
+    }
+
+    // Update scores
+    let currentScoreLeft = 0, currentScoreRight = 0
+    for (let i = 0; i < data.tourney.clients.length; i++) {
+        let currentScore = data.tourney.clients[i].play.score
+        if (currentBeatmap && currentBeatmap.EZMultiplier) currentScore *= currentBeatmap.EZMultiplier
+        if (data.tourney.clients[i].team === "left") currentScoreLeft += currentScore
+        else currentScoreRight += currentScore
+    }
+    animation.scoreLeft.update(currentScoreLeft)
+    animation.scoreRight.update(currentScoreRight)
+    animation.scoreDifferenceNumber.update(Math.abs(currentScoreLeft - currentScoreRight))
+
+    // Update lines
+    if (currentScoreLeft > currentScoreRight) {
+        scoreLineLeftEl.style.display = "block"
+        scoreLineRightEl.style.display = "none"
+    } else if (currentScoreLeft === currentScoreRight) {
+        scoreLineLeftEl.style.display = "block"
+        scoreLineRightEl.style.display = "block"
+    } else if (currentScoreLeft < currentScoreRight) {
+        scoreLineLeftEl.style.display = "none"
+        scoreLineRightEl.style.display = "block"
     }
 }
 
