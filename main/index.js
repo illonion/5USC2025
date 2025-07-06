@@ -70,7 +70,7 @@ socket.onmessage = event => {
     }
 
     // Now Playing Information
-    if (currentId !== data.beatmap.id || currentChecksum !== data.beatmap.checksum) {
+    if ((currentId !== data.beatmap.id || currentChecksum !== data.beatmap.checksum) && allBeatmaps) {
         currentId = data.beatmap.id
         currentChecksum = data.beatmap.checksum
         mapFound = false

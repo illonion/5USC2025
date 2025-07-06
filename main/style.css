@@ -84,14 +84,17 @@
     transform: translateX(-50%);
 }
 .logo { top: 41px; }
-.title { top: 237px; }
+.title { 
+    top: 237px;
+    transition: 500ms ease-in-out;
+}
 .round-name {
     top: 314px;
     font-family: "Dogica";
     color: white;
     font-size: 25px;
     letter-spacing: 2px;
-    transition: 500ms ease-in-out;;
+    transition: 500ms ease-in-out;
 }
 
 /* ===========================

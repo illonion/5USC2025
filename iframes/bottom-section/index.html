@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bottom Section</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="../../_shared/deps/reconnecting-websocket.min.js"></script>
+    <script src="../../_shared/utils.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,13 +18,13 @@
             <div class="casters-title">CASTERS</div>
         </div>
         <div class="containers">
-            <div class="now-playing-container">
+            <div class="now-playing-container" id="now-playing-container">
                 <div class="now-playing-overlay"></div>
-                <div class="now-playing-text now-playing-mod-id">NM1</div>
-                <div class="now-playing-text now-playing-song-title">SONG TITLE</div>
-                <div class="now-playing-text now-playing-song-artist">SONG ARTIST</div>
+                <div class="now-playing-text now-playing-mod-id" id="now-playing-mod-id">NM1</div>
+                <div class="now-playing-text now-playing-song-title" id="now-playing-song-title">SONG TITLE</div>
+                <div class="now-playing-text now-playing-song-artist" id="now-playing-song-artist">SONG ARTIST</div>
             </div>
-            <div class="live-chat-container">
+            <div class="live-chat-container" id="live-chat-container">
                 <div class="live-chat-wrapper bot">FAIRY BREAD: aaaaaaaaaaaaHELLO WORLDasdasdasdasdasdasd</div>
                 <div class="live-chat-wrapper bot">FAIRY BREAD: HELLO WORLD</div>
                 <div class="live-chat-wrapper bot">FAIRY BREAD: HELLO WORLD</div>
