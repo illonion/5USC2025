@@ -6,6 +6,7 @@ const rightTeamNameEl = document.getElementById("right-team-name")
 let currentLeftTeamName, currentRightTeamName
 
 // Beatmap information
+const titleEl = document.getElementById("title")
 const roundNameEl = document.getElementById("round-name")
 let allBeatmaps
 async function getBeatmaps() {
@@ -19,6 +20,7 @@ getBeatmaps()
 const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.beatmap_id) === Number(beatmapId))
 
 // Now Playing Information
+const nowPlayingSectionEl = document.getElementById("now-playing-section")
 const nowPlayingTopSectionEl = document.getElementById("now-playing-top-section")
 const nowPlayingSongTitleEl = document.getElementById("now-playing-song-title")
 const nowPlayingSongArtistEl = document.getElementById("now-playing-song-artist")
@@ -34,6 +36,7 @@ const statsOdEl = document.getElementById("stats-od")
 let currentId, currentChecksum, mapFound = false, currentBeatmap
 
 // Scores
+const scoresContainerEl = document.getElementById("scores-container")
 const scoreLeftEl = document.getElementById("score-left")
 const scoreRightEl = document.getElementById("score-right")
 const scoreDifferenceNumberEl = document.getElementById("score-difference-number")
@@ -142,6 +145,23 @@ socket.onmessage = event => {
     } else if (currentScoreLeft < currentScoreRight) {
         scoreLineLeftEl.style.display = "none"
         scoreLineRightEl.style.display = "block"
+    }
+
+    // Score visibility
+    if (scoreVisible !== data.tourney.scoreVisible) {
+        scoreVisible = data.tourney.scoreVisible
+
+        if (scoreVisible) {
+            titleEl.style.top = "237px"
+            roundNameEl.style.top = "314px"
+            nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height) - var(--middle-now-playing-section-height))`
+            scoresContainerEl.style.top = "0px"
+        } else {
+            titleEl.style.top = "257px"
+            roundNameEl.style.top = "354px"
+            nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height)`
+            scoresContainerEl.style.top = "-217px"
+        }
     }
 }
 

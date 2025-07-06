@@ -91,6 +91,7 @@
     color: white;
     font-size: 25px;
     letter-spacing: 2px;
+    transition: 500ms ease-in-out;;
 }
 
 /* ===========================
@@ -100,6 +101,7 @@
     position: absolute;
     height: var(--greenscreen-height);
     background-color: #0F0;
+    z-index: 1;
 }
 .greenscreen-player-1, .greenscreen-player-4 {
     top: var(--greenscreen-player-1-4-top);
@@ -118,6 +120,7 @@
     top: calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height) - var(--middle-now-playing-section-height));
     width: 960px;
     height: var(--middle-now-playing-section-height);
+    transition: 500ms ease-in-out;
 }
 .middle-now-playing-section > * {
     position: absolute;
@@ -225,6 +228,15 @@
 }
 .wide { grid-column: span 3; }
 
+/* ===========================
+   Scores Container
+=========================== */
+.scores-container {
+    position: absolute;
+    top: 0;
+    width: 1920px;
+    transition: 500ms ease-in-out;
+}
 /* ===========================
    Scores
 =========================== */
