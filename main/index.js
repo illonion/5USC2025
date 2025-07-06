@@ -50,6 +50,9 @@ let scoreVisible = true
 const scoreLineLeftEl = document.getElementById("score-line-left")
 const scoreLineRightEl = document.getElementById("score-line-right")
 
+// Iframe
+const iframe = document.getElementById("iframe")
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -156,11 +159,13 @@ socket.onmessage = event => {
             roundNameEl.style.top = "314px"
             nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height) - var(--middle-now-playing-section-height))`
             scoresContainerEl.style.top = "0px"
+            iframe.style.bottom = "-263px"
         } else {
             titleEl.style.top = "257px"
             roundNameEl.style.top = "354px"
             nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height)`
             scoresContainerEl.style.top = "-217px"
+            iframe.style.bottom = "0px"
         }
     }
 }
