@@ -54,6 +54,11 @@ const scoreLineRightEl = document.getElementById("score-line-right")
 // Iframe
 const iframe = document.getElementById("iframe")
 
+// Star containers
+const leftTeamStarContainerEl = document.getElementById("left-team-star-container")
+const rightTeamStarContainerEl = document.getElementById("right-team-star-container")
+let currentBestOf = 0, currentFirstTo = 0, currentStarLeft = 0, currentStarRight = 0
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -168,6 +173,42 @@ socket.onmessage = event => {
             nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height)`
             scoresContainerEl.style.top = "-217px"
             iframe.style.bottom = "0px"
+        }
+    }
+
+    // Stars Container
+    if (currentBestOf !== data.tourney.bestOF ||
+        currentStarLeft !== data.tourney.points.left ||
+        currentStarRight !== data.tourney.points.right
+    ) {
+        // Set details
+        currentBestOf = data.tourney.bestOF
+        currentFirstTo = Math.ceil(currentBestOf / 2)
+        currentStarLeft = data.tourney.points.left
+        currentStarRight = data.tourney.points.right
+
+        leftTeamStarContainerEl.innerHTML = ""
+        rightTeamStarContainerEl.innerHTML = ""
+
+        let i = 0
+        for (i; i < currentFirstTo; i++) {
+            leftTeamStarContainerEl.append(createStar(i, "left", `${i < currentStarLeft? "fill" : "empty"}`))
+        }
+
+        i = 0
+        for (i; i < currentFirstTo; i++) {
+            rightTeamStarContainerEl.append(createStar(i, "right", `${i < currentStarRight? "fill" : "empty"}`))
+        }
+
+        function createStar(index, side, attr) {
+            const teamStar = document.createElement("div")
+            teamStar.classList.add("team-star")
+
+            const image = document.createElement("img")
+            image.setAttribute("src", `static/points/${index === currentFirstTo - 1 ? "big" : "small"}_star_${side}_${attr}.png`)
+
+            teamStar.append(image)
+            return teamStar
         }
     }
 }
