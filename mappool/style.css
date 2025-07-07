@@ -66,6 +66,31 @@
    Team Stars
 =========================== */
 .team-star-container > * { position: absolute; }
+.team-star-middle {
+    left: 25.5px;
+    top: 15px;
+    transform: translate(50%, 50%);
+    width: 55px;
+}
+/* ===========================
+   Best of 9
+=========================== */
+.team-star-bo9-one {
+    left: 27px;
+    top: 0;
+}
+.team-star-bo9-two {
+    left: 27px;
+    top: 100px;
+}
+.team-star-bo9-three {
+    left: 96px;
+    top: 100px;
+}
+.team-star-bo9-four {
+    left: 96px;
+    top: 0px;
+}
 /* ===========================
    Best of 13
 =========================== */
@@ -92,10 +117,4 @@
 .team-star-bo13-six {
     left: 96px;
     top: 0px;
-}
-.team-star-middle {
-    left: 25.5px;
-    top: 15px;
-    transform: translate(50%, 50%);
-    width: 55px;
 }
