@@ -52,3 +52,50 @@
 }
 .team-name-left { top: 200px; }
 .team-name-right { top: 588px; }
+
+/* ===========================
+   Team Star Container
+=========================== */
+.team-star-container {
+    position: absolute;
+    left: 73px;
+}
+.team-star-container-left { top: 247px; }
+.team-star-container-right { top: 635px; }
+/* ===========================
+   Team Stars
+=========================== */
+.team-star-container > * { position: absolute; }
+/* ===========================
+   Best of 13
+=========================== */
+.team-star-bo13-one {
+    left: 27px;
+    top: 0;
+}
+.team-star-bo13-two {
+    left: 0;
+    top: 50px;
+}
+.team-star-bo13-three {
+    left: 27px;
+    top: 100px;
+}
+.team-star-bo13-four {
+    left: 96px;
+    top: 100px;
+}
+.team-star-bo13-five {
+    left: 122px;
+    top: 50px;
+}
+.team-star-bo13-six {
+    left: 96px;
+    top: 0px;
+}
+.team-star-middle {
+    left: 25.5px;
+    top: 15px;
+    transform: translate(50%, 50%);
+    width: 55px;
+}

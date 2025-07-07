@@ -205,7 +205,7 @@ socket.onmessage = event => {
             teamStar.classList.add("team-star")
 
             const image = document.createElement("img")
-            image.setAttribute("src", `static/points/${index === currentFirstTo - 1 ? "big" : "small"}_star_${side}_${attr}.png`)
+            image.setAttribute("src", `../_shared/assets/points/${index === currentFirstTo - 1 ? "big" : "small"}_star_${side}_${attr}.png`)
 
             teamStar.append(image)
             return teamStar
