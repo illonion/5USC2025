@@ -242,18 +242,19 @@ body {
     height: 337px;
     border-radius: 12px;
     background-color: #2a2c30;
-    background-color: gray;
     overflow: hidden;
 }
 .mappool-container-tile-background {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url("https://assets.ppy.sh/beatmaps/2395964/covers/cover.jpg");
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 304px;
+}
+.mappool-container-tile-tiebreaker {
+    height: 658px;
 }
 .overlay {
     position: absolute;
@@ -269,11 +270,15 @@ body {
     left: 0;
     width: 100%;
     height: 33px;
-    background-color: var(--ban-container-colour-left);
     text-align: center;
     line-height: 33px;
     color: white;
     font-size: 1.25em;
+}
+.mappool-container-tiebreaker-bottom {
+    line-height: 66px;
+    height: 66px;
+    font-size: 2.5em;
 }
 .mappool-container-tiebreaker {
     position: relative;
@@ -281,7 +286,8 @@ body {
     height: 724px;
     border-radius: 12px;
     background-color: #2a2c30;
-    background-color: gray;
+    background-size: cover;
+    background-position: center;
     overflow: hidden;
 }
 

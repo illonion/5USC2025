@@ -44,6 +44,10 @@ async function getBeatmaps() {
         button.dataset.id = allBeatmaps[i].beatmap_id
         mappoolManagementMapsEl.append(button)
     }
+
+    // Set beatmap id
+    mappoolTileTiebreakerEl.dataset.id = allBeatmaps[allBeatmaps.length - 1].beatmap_id
+    mappoolTileTiebreakerEl.setAttribute("id", allBeatmaps[allBeatmaps.length - 1].beatmap_id)
 }
 getBeatmaps()
 // Find Beatmaps
@@ -70,6 +74,7 @@ function createStars(side, starCount) {
 }
 
 // Update star count
+const mappoolTileTiebreakerEl = document.getElementById("mappool-container-tiebreaker")
 function updateStarCount(side, action) {
     if (!isStarToggled) return
 
@@ -85,6 +90,17 @@ function updateStarCount(side, action) {
     teamStarContainerRight.innerHTML = ""
     teamStarContainerLeft.append(createStars("left", currentStarLeft))
     teamStarContainerRight.append(createStars("right", currentStarRight))
+
+    // Setting Tiebreaker Information
+    if (currentStarLeft >= currentFirstTo - 1 && currentStarRight >= currentFirstTo - 1) {
+        mappoolTileTiebreakerEl.children[0].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${allBeatmaps[allBeatmaps.length - 1].beatmapset_id}/covers/cover.jpg")`
+        mappoolTileTiebreakerEl.children[1].style.backgroundColor = "#63cc4e"
+        mappoolTileTiebreakerEl.children[1].textContent = "TB"
+    } else {
+        mappoolTileTiebreakerEl.children[0].style.backgroundImage = "none"
+        mappoolTileTiebreakerEl.children[1].style.backgroundColor = "#2a2c30"
+        mappoolTileTiebreakerEl.children[1].textContent = ""
+    }
 }
 
 // Star Toggle
@@ -108,6 +124,10 @@ const teamBanTextContainerLeftEl = document.getElementById("team-ban-text-contai
 const teamBanImageContainerRightEl = document.getElementById("team-ban-image-container-right")
 const teamBanTextContainerRightEl = document.getElementById("team-ban-text-container-right")
 
+// Pick related elements
+const mappoolContainerLeftEl = document.getElementById("mappool-container-left")
+const mappoolContainerRightEl = document.getElementById("mappool-container-right")
+
 // Map Click Event
 function mapClickEvent(event) {
     // Figure out whether it is a pick or ban
@@ -125,6 +145,15 @@ function mapClickEvent(event) {
     let action = "pick"
     if (event.ctrlKey) action = "ban"
 
+    // Check if map exists in bans
+    const mapCheck = !!(
+        teamBanImageContainerLeftEl.querySelector(`[data-id="${currentMapId}"]`) ||
+        teamBanImageContainerRightEl.querySelector(`[data-id="${currentMapId}"]`) ||
+        mappoolContainerLeftEl.querySelector(`[data-id="${currentMapId}"]`) ||
+        mappoolContainerRightEl.querySelector(`[data-id="${currentMapId}"]`)
+    )
+    if (mapCheck) return
+
     // Bans
     if (action === "ban") {
         const currentBanImageContainer = team === "left" ? teamBanImageContainerLeftEl : teamBanImageContainerRightEl
@@ -135,6 +164,19 @@ function mapClickEvent(event) {
             currentBanImageContainer.children[i].dataset.id = currentMapId
             currentBanImageContainer.children[i].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
             currentBanTextContainer.children[i].textContent = `${currentMap.mod}${currentMap.order}`
+            break
+        }
+    }
+
+    // Picks
+    if (action === "pick") {
+        const currentMapooolContainer = team === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
+        for (let i = 0; i < currentMapooolContainer.childElementCount; i++) {
+            if (currentMapooolContainer.children[i].dataset.id !== undefined) continue
+            currentMapooolContainer.children[i].dataset.id = currentMapId
+            currentMapooolContainer.children[i].children[0].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+            currentMapooolContainer.children[i].children[1].style.backgroundColor = team === "left" ? "#CC4E4E" : "#1C4C8F"
+            currentMapooolContainer.children[i].children[1].textContent = `${currentMap.mod}${currentMap.order}`
             break
         }
     }
