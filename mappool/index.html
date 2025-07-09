@@ -146,7 +146,7 @@
                 <button onclick="updateStarCount('left','plus')">Left ++</button>
                 <button onclick="updateStarCount('right','minus')">Right --</button>
                 <button onclick="updateStarCount('right','plus')">Right ++</button>
-                <button id="toggle-stars" onclick="toggleStars()">Toggle Stars: ON</button>
+                <button class="full-width-button" id="toggle-stars" onclick="toggleStars()">Toggle Stars: ON</button>
             </div>
         </section>
         <section class="sidebar-section">
@@ -157,7 +157,10 @@
                 Ctrl + LC = Red Ban<br><br>
                 Ctrl + RC = Blue Ban
             </p>
-            <div class="sidebar-button-container" id="mappool-management-maps"></div>
+            <div class="sidebar-button-container" id="mappool-management-maps" style="margin-bottom: 10px;"></div>
+            <div class="sidebar-button-container">
+                <button class="full-width-button" id="toggle-autopick" onclick="toggleAutopick()">Toggle Autopick: OFF</button>
+            </div>
         </section>
     </div>
 

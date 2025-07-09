@@ -368,4 +368,4 @@ iframe {
 /* ===========================
     Full Width Button
 =========================== */
-#toggle-stars { width: 220px; }
+#toggle-autopick, #toggle-stars { width: 220px; }

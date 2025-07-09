@@ -217,6 +217,25 @@ socket.onmessage = event => {
         currentId = data.beatmap.id
         currentChecksum = data.beatmap.checksum
         currentMappoolBeatmap = findBeatmaps(currentId)
+
+        // Find element
+        const element = document.getElementById(mapId)
+        
+        // Click event
+        if (isAutopickToggled && element && (!element.hasAttribute("data-is-autopicked") || element.getAttribute("data-is-autopicked") !== "true")) {
+            // Check if autopicked already
+            const event = new MouseEvent('mousedown', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                button: (currentNextPicker === "left")? 0 : 2
+            })
+            element.dispatchEvent(event)
+            element.setAttribute("data-is-autopicked", "true")
+
+            if (currentNextPicker === "left") setNextPicker("right")
+            else if (currentNextPicker === "right") setNextPicker("left")
+        }
     }
 
     // Set current scores
@@ -255,3 +274,13 @@ socket.onmessage = event => {
         }
     }
 }
+
+// Toggle Autopick
+const toggleAutopickEl = document.getElementById("toggle-autopick")
+let isAutopickToggled = false
+function toggleAutopick() {
+    isAutopickToggled = !isAutopickToggled
+    toggleAutopickEl.textContent = `Toggle Autopick: ${isAutopickToggled? "ON": "OFF"}`
+}
+
+// TODO: Set Next Picker
