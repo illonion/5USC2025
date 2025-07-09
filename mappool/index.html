@@ -6,12 +6,16 @@
     <title>Mappool</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="../_shared/deps/reconnecting-websocket.min.js"></script>
+    <script src="../_shared/utils.js"></script>
 </head>
 <body>
     <div class="main">
         <!-- Top Section -->
         <img class="logo" src="../_shared/assets/logo.png">
-        <div class="round-name">QUARTERFINALS</div>
+        <div class="round-name" id="round-name"></div>
 
         <!-- Team Names -->
         <div class="team-name team-name-left">SOUTHERN CALIFORNIA</div>
