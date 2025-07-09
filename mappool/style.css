@@ -12,6 +12,16 @@
     src: url("../font/dogica.woff2");
     font-weight: 400;
 }
+@font-face {
+    font-family: "Dogica";
+    src: url("../font/dogicabold.woff2");
+    font-weight: 700;
+}
+
+body {
+    font-family: "Dogica";
+    font-weight: 400;
+}
 
 .main {
     position: absolute;
@@ -22,8 +32,6 @@
     background-image: url("static/background.png");
     background-size: cover;
     background-position: center;
-    font-family: "Dogica";
-    font-weight: 400;
 }
 
 /* ===========================
@@ -84,46 +92,46 @@
 /* ===========================
    Best of 9
 =========================== */
-.team-star-bo9-one {
+.team-star-bo9-1 {
     left: 27px;
     top: 0;
 }
-.team-star-bo9-two {
+.team-star-bo9-2 {
     left: 27px;
     top: 100px;
 }
-.team-star-bo9-three {
+.team-star-bo9-3 {
     left: 96px;
     top: 100px;
 }
-.team-star-bo9-four {
+.team-star-bo9-4 {
     left: 96px;
     top: 0px;
 }
 /* ===========================
    Best of 13
 =========================== */
-.team-star-bo13-one {
+.team-star-bo13-1 {
     left: 27px;
     top: 0;
 }
-.team-star-bo13-two {
+.team-star-bo13-2 {
     left: 0;
     top: 50px;
 }
-.team-star-bo13-three {
+.team-star-bo13-3 {
     left: 27px;
     top: 100px;
 }
-.team-star-bo13-four {
+.team-star-bo13-4 {
     left: 96px;
     top: 100px;
 }
-.team-star-bo13-five {
+.team-star-bo13-5 {
     left: 122px;
     top: 50px;
 }
-.team-star-bo13-six {
+.team-star-bo13-6 {
     left: 96px;
     top: 0px;
 }
@@ -293,4 +301,48 @@ iframe {
     height: 215px;
     transition: 500ms ease-in-out;
     border: none;
+}
+
+/* ===========================
+    Sidebar
+=========================== */
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 1920px;
+    width: 250px;
+    height: 1080px;
+    background-color: #26272B;
+}
+.sidebar-section h1 {
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    line-height: 30px;
+}
+.sidebar-button-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.sidebar-button-container button {
+    width: 105px;
+    height: 30px;
+    font-family: "Dogica";
+    font-weight: 400;
+    font-size: 0.6em;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+#toggle-stars {
+    width: 220px;
+}
+.sidebar-button-container button:active {
+    background-color: white;
+    color: #26272B;
 }

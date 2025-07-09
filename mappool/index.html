@@ -18,24 +18,12 @@
         <div class="round-name" id="round-name"></div>
 
         <!-- Team Names -->
-        <div class="team-name team-name-left">SOUTHERN CALIFORNIA</div>
-        <div class="team-name team-name-right">ARIZONA</div>
+        <div class="team-name team-name-left" id="team-name-left">SOUTHERN CALIFORNIA</div>
+        <div class="team-name team-name-right" id="team-name-right">ARIZONA</div>
 
         <!-- Stars -->
-        <div class="team-star-container team-star-container-left">
-            <img class="team-star-bo9-one" src="../_shared/assets/points/small_star_left_fill.png">
-            <img class="team-star-bo9-two" src="../_shared/assets/points/small_star_left_fill.png">
-            <img class="team-star-bo9-three" src="../_shared/assets/points/small_star_left_fill.png">
-            <img class="team-star-bo9-four" src="../_shared/assets/points/small_star_left_fill.png">
-            <img class="team-star-middle" src="../_shared/assets/points/big_star_left_fill.png">
-        </div>
-        <div class="team-star-container team-star-container-right">
-            <img class="team-star-bo9-one" src="../_shared/assets/points/small_star_right_fill.png">
-            <img class="team-star-bo9-two" src="../_shared/assets/points/small_star_right_fill.png">
-            <img class="team-star-bo9-three" src="../_shared/assets/points/small_star_right_fill.png">
-            <img class="team-star-bo9-four" src="../_shared/assets/points/small_star_right_fill.png">
-            <img class="team-star-middle" src="../_shared/assets/points/big_star_right_fill.png">
-        </div>
+        <div class="team-star-container team-star-container-left" id="team-star-container-left"></div>
+        <div class="team-star-container team-star-container-right" id="team-star-container-right"></div>
 
         <!-- Bans -->
         <div class="team-bans-container team-bans-container-left">
@@ -103,6 +91,20 @@
 
         <!-- Iframe for Bottom Section -->
         <iframe id="iframe" src="../iframes/bottom-section/"></iframe>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <section class="sidebar-section">
+            <h1>Star Control</h1>
+            <div class="sidebar-button-container">
+                <button onclick="updateStarCount('left','minus')">Left --</button>
+                <button onclick="updateStarCount('left','plus')">Left ++</button>
+                <button onclick="updateStarCount('right','minus')">Right --</button>
+                <button onclick="updateStarCount('right','plus')">Right ++</button>
+                <button id="toggle-stars" onclick="toggleStars()">Toggle Stars: ON</button>
+            </div>
+        </section>
     </div>
 
     <script src="index.js"></script>
