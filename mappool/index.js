@@ -4,6 +4,7 @@ const teamStarContainerRight = document.getElementById("team-star-container-righ
 
 // Beatmap information
 const roundNameEl = document.getElementById("round-name")
+const mappoolManagementMapsEl = document.getElementById("mappool-management-maps")
 let allBeatmaps, roundName
 let currentBestOf, currentFirstTo, currentStarLeft = 0, currentStarRight = 0
 async function getBeatmaps() {
@@ -32,6 +33,17 @@ async function getBeatmaps() {
 
     // Set round name
     roundNameEl.textContent = roundName
+
+    // Append map buttons
+    for (let i = 0; i < allBeatmaps.length - 1; i++) {
+        const button = document.createElement("button")
+        button.textContent = `${allBeatmaps[i].mod}${allBeatmaps[i].order}`
+        button.addEventListener("mousedown", mapClickEvent)
+        button.addEventListener("contextmenu", event => event.preventDefault())
+        button.setAttribute("id", allBeatmaps[i].beatmap_id)
+        button.dataset.id = allBeatmaps[i].beatmap_id
+        mappoolManagementMapsEl.append(button)
+    }
 }
 getBeatmaps()
 // Find Beatmaps
@@ -89,6 +101,45 @@ function toggleStars() {
         teamStarContainerRight.style.display = "block"
     }
 }
+
+// Ban related elements
+const teamBanImageContainerLeftEl = document.getElementById("team-ban-image-container-left")
+const teamBanTextContainerLeftEl = document.getElementById("team-ban-text-container-left")
+const teamBanImageContainerRightEl = document.getElementById("team-ban-image-container-right")
+const teamBanTextContainerRightEl = document.getElementById("team-ban-text-container-right")
+
+// Map Click Event
+function mapClickEvent(event) {
+    // Figure out whether it is a pick or ban
+    const currentMapId = this.dataset.id
+    const currentMap = findBeatmaps(currentMapId)
+    if (!currentMap) return
+
+    // Team
+    let team
+    if (event.button === 0) team = "left"
+    else if (event.button === 2) team = "right"
+    if (!team) return
+
+    // Action
+    let action = "pick"
+    if (event.ctrlKey) action = "ban"
+
+    // Bans
+    if (action === "ban") {
+        const currentBanImageContainer = team === "left" ? teamBanImageContainerLeftEl : teamBanImageContainerRightEl
+        const currentBanTextContainer = team === "left"? teamBanTextContainerLeftEl : teamBanTextContainerRightEl
+
+        for (let i = 0; i < currentBanImageContainer.childElementCount; i++) {
+            if (currentBanImageContainer.children[i].dataset.id !== undefined) continue
+            currentBanImageContainer.children[i].dataset.id = currentMapId
+            currentBanImageContainer.children[i].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+            currentBanTextContainer.children[i].textContent = `${currentMap.mod}${currentMap.order}`
+            break
+        }
+    }
+}
+
 // Team Inforamtion
 const leftTeamNameEl= document.getElementById("team-name-left")
 const rightTeamNameEl = document.getElementById("team-name-right")

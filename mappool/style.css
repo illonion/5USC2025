@@ -188,14 +188,8 @@ body {
     background-position: center;
     background-size: cover;
 }
-.team-ban-image-one {
-    top: 10px;
-    background-image: url("https://assets.ppy.sh/beatmaps/2395964/covers/cover.jpg");
-}
-.team-ban-image-two {
-    top: 161px;
-    background-image: url("https://assets.ppy.sh/beatmaps/2142030/covers/cover.jpg");
-}
+.team-ban-image-one { top: 10px; }
+.team-ban-image-two { top: 161px; }
 /* ===========================
    Team Bans Overlay
 =========================== */
@@ -314,6 +308,16 @@ iframe {
     height: 1080px;
     background-color: #26272B;
 }
+/* ===========================
+    Sidebar Section
+=========================== */
+.sidebar-section {
+    border-bottom: 2px solid white;
+    padding-bottom: 20px;
+}
+/* ===========================
+    H1
+=========================== */
 .sidebar-section h1 {
     width: 100%;
     text-align: center;
@@ -321,6 +325,15 @@ iframe {
     font-weight: 700;
     line-height: 30px;
 }
+.sidebar-section p {
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-size: 0.7em;
+}
+/* ===========================
+    Button Container
+=========================== */
 .sidebar-button-container {
     width: 100%;
     display: flex;
@@ -328,6 +341,9 @@ iframe {
     justify-content: center;
     gap: 10px;
 }
+/* ===========================
+    Button
+=========================== */
 .sidebar-button-container button {
     width: 105px;
     height: 30px;
@@ -339,10 +355,11 @@ iframe {
     border: 2px solid white;
     border-radius: 10px;
 }
-#toggle-stars {
-    width: 220px;
-}
 .sidebar-button-container button:active {
     background-color: white;
     color: #26272B;
 }
+/* ===========================
+    Full Width Button
+=========================== */
+#toggle-stars { width: 220px; }

@@ -33,16 +33,18 @@
             <div class="border border-left top-right-border"></div>
             <div class="border border-left bottom-right-border"></div>
             <!-- Ban Images -->
-            <div class="team-ban-image team-ban-image-one">
-                <div class="team-ban-image-overlay"></div>
-            </div>
-            <div class="team-ban-image team-ban-image-two">
-                <div class="team-ban-image-overlay"></div>
+            <div id="team-ban-image-container-left">
+                <div class="team-ban-image team-ban-image-one">
+                    <div class="team-ban-image-overlay"></div>
+                </div>
+                <div class="team-ban-image team-ban-image-two">
+                    <div class="team-ban-image-overlay"></div>
+                </div>
             </div>
             <!-- Ban Texts -->
-            <div class="team-ban-text-container team-ban-text-container-left">
-                <div class="team-ban-text">NM1</div>
-                <div class="team-ban-text">HD2</div>
+            <div class="team-ban-text-container team-ban-text-container-left" id="team-ban-text-container-left">
+                <div class="team-ban-text"></div>
+                <div class="team-ban-text"></div>
             </div>
         </div>
         <div class="team-bans-container team-bans-container-right">
@@ -52,16 +54,18 @@
             <div class="border border-right top-right-border"></div>
             <div class="border border-right bottom-right-border"></div>
             <!-- Ban Images -->
-            <div class="team-ban-image team-ban-image-one">
-                <div class="team-ban-image-overlay"></div>
-            </div>
-            <div class="team-ban-image team-ban-image-two">
-                <div class="team-ban-image-overlay"></div>
+            <div id="team-ban-image-container-right">
+                <div class="team-ban-image team-ban-image-one">
+                    <div class="team-ban-image-overlay"></div>
+                </div>
+                <div class="team-ban-image team-ban-image-two">
+                    <div class="team-ban-image-overlay"></div>
+                </div>
             </div>
             <!-- Ban Texts -->
-            <div class="team-ban-text-container team-ban-text-container-right">
-                <div class="team-ban-text">NM1</div>
-                <div class="team-ban-text">HD2</div>
+            <div class="team-ban-text-container team-ban-text-container-right" id="team-ban-text-container-right">
+                <div class="team-ban-text"></div>
+                <div class="team-ban-text"></div>
             </div>
         </div>
 
@@ -104,6 +108,16 @@
                 <button onclick="updateStarCount('right','plus')">Right ++</button>
                 <button id="toggle-stars" onclick="toggleStars()">Toggle Stars: ON</button>
             </div>
+        </section>
+        <section class="sidebar-section">
+            <h1>Mappool Management</h1>
+            <p>
+                Left Click (LC) = Red Pick<br><br>
+                Right Click (RC) = Blue Pick<br><br>
+                Ctrl + LC = Red Ban<br><br>
+                Ctrl + RC = Blue Ban
+            </p>
+            <div class="sidebar-button-container" id="mappool-management-maps"></div>
         </section>
     </div>
 
