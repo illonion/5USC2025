@@ -76,8 +76,6 @@ function createStars(side, starCount) {
 // Update star count
 const mappoolTileTiebreakerEl = document.getElementById("mappool-container-tiebreaker")
 function updateStarCount(side, action) {
-    if (!isStarToggled) return
-
     if (side === "left") {
         currentStarLeft += action === "plus" ? 1 : -1
         currentStarLeft = Math.max(0, Math.min(currentStarLeft, currentFirstTo))
@@ -108,7 +106,7 @@ const toggleStarsEl = document.getElementById("toggle-stars")
 let isStarToggled = true
 function toggleStars() {
     isStarToggled = !isStarToggled
-    toggleStarsEl.innerText = `Toggle Stars: ${isStarToggled? "ON" : "OFF"}`
+    toggleStarsEl.innerText = `TOGGLE STARS: ${isStarToggled? "ON" : "OFF"}`
     if (!isStarToggled) {
         teamStarContainerLeft.style.display = "none"
         teamStarContainerRight.style.display = "none"
@@ -219,7 +217,7 @@ socket.onmessage = event => {
         currentMappoolBeatmap = findBeatmaps(currentId)
 
         // Find element
-        const element = document.getElementById(mapId)
+        const element = document.getElementById(currentId)
         
         // Click event
         if (isAutopickToggled && element && (!element.hasAttribute("data-is-autopicked") || element.getAttribute("data-is-autopicked") !== "true")) {
@@ -280,7 +278,13 @@ const toggleAutopickEl = document.getElementById("toggle-autopick")
 let isAutopickToggled = false
 function toggleAutopick() {
     isAutopickToggled = !isAutopickToggled
-    toggleAutopickEl.textContent = `Toggle Autopick: ${isAutopickToggled? "ON": "OFF"}`
+    toggleAutopickEl.textContent = `TOGGLE AUTOPICK: ${isAutopickToggled? "ON": "OFF"}`
 }
 
 // TODO: Set Next Picker
+const nextPickerEl = document.getElementById("next-picker")
+let currentNextPicker = "none"
+function setNextPicker(pickerTeam) {
+    currentNextPicker = pickerTeam
+    nextPickerEl.textContent = pickerTeam.toUpperCase()
+}

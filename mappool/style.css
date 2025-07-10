@@ -310,10 +310,30 @@ iframe {
     position: absolute;
     top: 0;
     left: 1920px;
-    width: 250px;
+    width: 750px;
     height: 1080px;
     background-color: #26272B;
 }
+/* ===========================
+    Column
+=========================== */
+.column {
+    position: absolute;
+    width: 250px;
+}
+.column-2 { left: 250px; }
+.column-3 { left: 500px; }
+/* ===========================
+    Divider
+=========================== */
+.divider {
+    position: absolute;
+    width: 2px;
+    height: 1080px;
+    background-color: white;
+}
+.divider-1 { left: 249px; }
+.divider-2 { left: 499px; }
 /* ===========================
     Sidebar Section
 =========================== */
@@ -368,4 +388,4 @@ iframe {
 /* ===========================
     Full Width Button
 =========================== */
-#toggle-autopick, #toggle-stars { width: 220px; }
+#toggle-autopick, #toggle-stars, #next-picker-none { width: 220px; }
