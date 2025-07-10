@@ -349,6 +349,55 @@ function mappoolOverrideChangeAction() {
         }
     }
 
+    if (mappoolOverrideAction === "setPick" || mappoolOverrideAction === "removePick") {
+        // Create h2 for which ban
+        const whichBanH2 = document.createElement("h2")
+        whichBanH2.textContent = "Which Pick?"
+        mappoolOverrideColumnEl.append(whichBanH2)
+
+        // Select Pick
+        const whichPickSelect = document.createElement("select")
+        whichPickSelect.classList.add("mappool-override-select")
+        whichPickSelect.setAttribute("onchange", "setMappoolOverrideInformation()")
+        whichPickSelect.setAttribute("id", "which-action-select")
+        whichPickSelect.setAttribute("size", mappoolContainerLeftEl.childElementCount * 2)
+
+        for (let i = 0; i < mappoolContainerLeftEl.childElementCount; i++) {
+            // Create red ban option
+            const redPickOption = document.createElement("option")
+            redPickOption.setAttribute("value",`left|pick|${i}`)
+            redPickOption.textContent = `Left Pick ${i + 1}`
+
+            const bluePickOption = document.createElement("option")
+            bluePickOption.setAttribute("value",`right|pick|${i}`)
+            bluePickOption.textContent = `Right Pick ${i + 1}`
+
+            whichPickSelect.append(redPickOption, bluePickOption)
+        }
+        mappoolOverrideColumnEl.append(whichPickSelect)
+
+        if (mappoolOverrideAction === "setPick") {
+            // Which Map
+            const whichBanMap = document.createElement("h2")
+            whichBanMap.textContent = "Which Map?"
+            mappoolOverrideColumnEl.append(whichBanMap)
+
+            // Select all maps
+            const mappoolOverrideBeatmapsContainer = document.createElement("div")
+            mappoolOverrideBeatmapsContainer.classList.add("mappool-override-beatmaps-container")
+
+            for (let i = 0; i < allBeatmaps.length; i++) {
+                const mappoolOverrideBeatmaps = document.createElement("div")
+                mappoolOverrideBeatmaps.classList.add("mappool-override-beatmaps")
+                mappoolOverrideBeatmaps.textContent = `${allBeatmaps[i].mod}${allBeatmaps[i].order}`
+                mappoolOverrideBeatmaps.setAttribute("id", allBeatmaps[i].beatmap_id)
+                mappoolOverrideBeatmaps.addEventListener("click", mappoolOverrideSelectMap)
+                mappoolOverrideBeatmapsContainer.append(mappoolOverrideBeatmaps)
+                mappoolOverrideColumnEl.append(mappoolOverrideBeatmapsContainer)
+            }
+        }
+    }
+
     // Apply Changes Button
     const sidebarButtonContainer = document.createElement("div")
     sidebarButtonContainer.classList.add("sidebar-button-container")
@@ -366,6 +415,12 @@ function mappoolOverrideChangeAction() {
             break
         case "removeBan":
             applyChangesButton.setAttribute("onclick", "mappoolOverrideRemoveBan()")
+            break
+        case "setPick":
+            applyChangesButton.setAttribute("onclick", "mappoolOverrideSetPick()")
+            break
+        case "removePick":
+            applyChangesButton.setAttribute("onclick", "mappoolOverrideRemovePick()")
             break
     }
 }
@@ -421,4 +476,40 @@ function mappoolOverrideRemoveBan() {
     currentBanImage.removeAttribute("data-id")
     currentBanImage.style.backgroundImage = "none"
     currentBanTextContainer.children[mappoolOverrideTileNumber].textContent = ``
+}
+
+// Mappool Override Set Pick
+function mappoolOverrideSetPick() {
+    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
+
+    // Get current map
+    const currentMap = findBeatmaps(mappoolOverrideMap)
+    if (!currentMap) return
+
+    // Set map information
+    const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
+    const currentTile = currentMapooolContainer.children[mappoolOverrideTileNumber]
+
+    currentTile.dataset.id = mappoolOverrideMap
+    currentTile.children[0].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+    currentTile.children[1].style.backgroundColor = mappoolOverrideTeam === "left" ? "#CC4E4E" : "#1C4C8F"
+    currentTile.children[1].textContent = `${currentMap.mod}${currentMap.order}`
+}
+
+// Mappool Override Remove Pick
+function mappoolOverrideRemovePick() {
+    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
+
+    // Get current map
+    const currentMap = findBeatmaps(mappoolOverrideMap)
+    if (!currentMap) return
+
+    // Set map information
+    const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
+    const currentTile = currentMapooolContainer.children[mappoolOverrideTileNumber]
+
+    currentTile.removeAttribute("data-id")
+    currentTile.children[0].style.backgroundImage = "none"
+    currentTile.children[1].style.backgroundColor = "#2a2c30"
+    currentTile.children[1].textContent = ""
 }

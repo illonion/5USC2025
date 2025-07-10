@@ -57,6 +57,39 @@ body {
 }
 
 /* ===========================
+   Tickets
+=========================== */
+.ticket {
+    position: absolute;
+    left: -51px;
+}
+.ticket-left { top: 130px; }
+.ticket-right { top: 518px; }
+/* ===========================
+   Ticket Left Section 
+=========================== */
+.ticket-left-section {
+    position: absolute;
+    width: 357px;
+    height: 305px;
+    background-color: white;
+    overflow: hidden;
+}
+.ticket-left-section-left { top: 130px; }
+.ticket-left-section-right { top: 518px; }
+/* ===========================
+   Ticket Borders
+=========================== */
+.top-right-ticket-border {
+    top: -29px;
+    left: 332px;
+}
+.bottom-right-ticket-border {
+    top: 287px;
+    left: 332px;
+}
+
+/* ===========================
    Team Names
 =========================== */
 .team-name {
@@ -159,6 +192,7 @@ body {
     border-radius: 50%;
     z-index: 1;  
 }
+.border-ticket { outline: 10px solid white; }
 .border-left { outline: 10px solid var(--ban-container-colour-left); }
 .border-right { outline: 10px solid var(--ban-container-colour-right); }
 .top-left-border {
