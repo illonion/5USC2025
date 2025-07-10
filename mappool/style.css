@@ -342,7 +342,7 @@ iframe {
     padding-bottom: 20px;
 }
 /* ===========================
-    H1
+    Texts
 =========================== */
 .sidebar-section h1 {
     width: 100%;
@@ -350,6 +350,13 @@ iframe {
     color: white;
     font-weight: 700;
     line-height: 30px;
+}
+.sidebar-section h2 {
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.25em;
 }
 .sidebar-section p {
     color: white;
@@ -388,4 +395,39 @@ iframe {
 /* ===========================
     Full Width Button
 =========================== */
-#toggle-autopick, #toggle-stars, #next-picker-none { width: 220px; }
+#toggle-autopick, #toggle-stars, #next-picker-none, #apply-changes { width: 220px; }
+/* ===========================
+    Mappool Override Select
+=========================== */
+.mappool-override-select {
+    font-family: "Dogica";
+    color: white;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    line-height: 25px;
+}
+.mappool-override-select > * {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mappool-override-select::-webkit-scrollbar { display: none; }
+/* ===========================
+    Mappool Override Beatmaps Container
+=========================== */
+.mappool-override-beatmaps-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.mappool-override-beatmaps {
+    width: 80px;
+    height: 30px;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}

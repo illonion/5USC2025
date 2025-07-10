@@ -288,3 +288,137 @@ function setNextPicker(pickerTeam) {
     currentNextPicker = pickerTeam
     nextPickerEl.textContent = pickerTeam.toUpperCase()
 }
+
+// Mappool override section
+const mappoolOverrideColumnEl = document.getElementById("mappool-override-column")
+const mappoolOverrideActionSelectEl = document.getElementById("mappool-override-action-select")
+function mappoolOverrideChangeAction() {
+    let mappoolOverrideAction = mappoolOverrideActionSelectEl.value
+
+    // Remove last elements
+    while (mappoolOverrideColumnEl.childElementCount > 3) {
+        mappoolOverrideColumnEl.lastChild.remove()
+    }
+
+    // Set Ban
+    if (mappoolOverrideAction === "setBan" || mappoolOverrideAction === "removeBan") {
+        // Create h2 for which ban
+        const whichBanH2 = document.createElement("h2")
+        whichBanH2.textContent = "Which Ban?"
+        mappoolOverrideColumnEl.append(whichBanH2)
+
+        // Select Ban
+        const whichBanSelect = document.createElement("select")
+        whichBanSelect.classList.add("mappool-override-select")
+        whichBanSelect.setAttribute("onchange", "setMappoolOverrideInformation()")
+        whichBanSelect.setAttribute("id", "which-action-select")
+        whichBanSelect.setAttribute("size", "4")
+        for (let i = 0; i < 2; i++) {
+            // Create red ban option
+            const redBanOption = document.createElement("option")
+            redBanOption.setAttribute("value",`left|ban|${i}`)
+            redBanOption.textContent = `Left Ban ${i + 1}`
+
+            const blueBanOption = document.createElement("option")
+            blueBanOption.setAttribute("value",`right|ban|${i}`)
+            blueBanOption.textContent = `Right Ban ${i + 1}`
+
+            whichBanSelect.append(redBanOption, blueBanOption)
+        }
+        mappoolOverrideColumnEl.append(whichBanSelect)
+
+        if (mappoolOverrideAction === "setBan") {
+            // Which Map
+            const whichBanMap = document.createElement("h2")
+            whichBanMap.textContent = "Which Map?"
+            mappoolOverrideColumnEl.append(whichBanMap)
+
+            // Select all maps
+            const mappoolOverrideBeatmapsContainer = document.createElement("div")
+            mappoolOverrideBeatmapsContainer.classList.add("mappool-override-beatmaps-container")
+
+            for (let i = 0; i < allBeatmaps.length; i++) {
+                const mappoolOverrideBeatmaps = document.createElement("div")
+                mappoolOverrideBeatmaps.classList.add("mappool-override-beatmaps")
+                mappoolOverrideBeatmaps.textContent = `${allBeatmaps[i].mod}${allBeatmaps[i].order}`
+                mappoolOverrideBeatmaps.setAttribute("id", allBeatmaps[i].beatmap_id)
+                mappoolOverrideBeatmaps.addEventListener("click", mappoolOverrideSelectMap)
+                mappoolOverrideBeatmapsContainer.append(mappoolOverrideBeatmaps)
+                mappoolOverrideColumnEl.append(mappoolOverrideBeatmapsContainer)
+            }
+        }
+    }
+
+    // Apply Changes Button
+    const sidebarButtonContainer = document.createElement("div")
+    sidebarButtonContainer.classList.add("sidebar-button-container")
+    mappoolOverrideColumnEl.append(sidebarButtonContainer)
+
+    const applyChangesButton = document.createElement("button")
+    applyChangesButton.setAttribute("id", "apply-changes")
+    applyChangesButton.textContent = `APPLY CHANGES`
+    applyChangesButton.style.fontSize = "0.7em"
+    sidebarButtonContainer.append(applyChangesButton)
+    
+    switch (mappoolOverrideAction) {
+        case "setBan":
+            applyChangesButton.setAttribute("onclick", "mappoolOverrideSetBan()")
+            break
+        case "removeBan":
+            applyChangesButton.setAttribute("onclick", "mappoolOverrideRemoveBan()")
+            break
+    }
+}
+
+// Set Mappool Override Information
+let mappoolOverrideTeam, mappoolOverrideAction, mappoolOverrideTileNumber
+function setMappoolOverrideInformation() {
+    [mappoolOverrideTeam, mappoolOverrideAction, mappoolOverrideTileNumber] = document.getElementById("which-action-select").value.split("|")
+}
+
+// Mappool Override Select Map
+let mappoolOverrideMap
+function mappoolOverrideSelectMap() {
+    mappoolOverrideMap = this.id
+    const mappoolOverrideBeatmaps = document.getElementsByClassName("mappool-override-beatmaps")
+    for (let i = 0; i < mappoolOverrideBeatmaps.length; i++) {
+        mappoolOverrideBeatmaps[i].style.backgroundColor = "transparent"
+        mappoolOverrideBeatmaps[i].style.color = "white"
+    }
+    this.style.backgroundColor = "#C2C2C2"
+    this.style.color = "#26272B"
+}
+
+// Mappool Override Set Ban
+function mappoolOverrideSetBan() {
+    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
+
+    // Get current map
+    const currentMap = findBeatmaps(mappoolOverrideMap)
+    if (!currentMap) return
+
+    // Get Containers
+    const currentBanImageContainer = mappoolOverrideTeam === "left" ? teamBanImageContainerLeftEl : teamBanImageContainerRightEl
+    const currentBanTextContainer = mappoolOverrideTeam === "left"? teamBanTextContainerLeftEl : teamBanTextContainerRightEl
+
+    // Set information
+    const currentBanImage = currentBanImageContainer.children[mappoolOverrideTileNumber]
+    currentBanImage.dataset.id = mappoolOverrideMap
+    currentBanImage.style.backgroundImage =  `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+    currentBanTextContainer.children[mappoolOverrideTileNumber].textContent = `${currentMap.mod}${currentMap.order}`
+}
+
+// Mappool Override Remove Ban
+function mappoolOverrideRemoveBan() {
+    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber) return
+
+    // Get Containers
+    const currentBanImageContainer = mappoolOverrideTeam === "left" ? teamBanImageContainerLeftEl : teamBanImageContainerRightEl
+    const currentBanTextContainer = mappoolOverrideTeam === "left"? teamBanTextContainerLeftEl : teamBanTextContainerRightEl
+
+    // Remove Information
+    const currentBanImage = currentBanImageContainer.children[mappoolOverrideTileNumber]
+    currentBanImage.removeAttribute("data-id")
+    currentBanImage.style.backgroundImage = "none"
+    currentBanTextContainer.children[mappoolOverrideTileNumber].textContent = ``
+}

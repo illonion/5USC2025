@@ -175,6 +175,20 @@
             </section>
         </div>
         <div class="divider divider-2"></div>
+        <div class="column column-3">
+            <section class="sidebar-section" id="mappool-override-column">
+                <h1>Mappool Override Management</h1>
+                <h2>Which Action?</h2>
+                <select class="mappool-override-select" id="mappool-override-action-select" size="6" onchange="mappoolOverrideChangeAction()">
+                    <option value="setBan">Set Ban</option>
+                    <option value="removeBan">Remove Ban</option>
+                    <option value="setPick">Set Pick</option>
+                    <option value="removePick">Remove Pick</option>
+                    <option value="setWinner">Set Winner</option>
+                    <option value="removeWinner">Remove Winner</option>
+                </select>
+            </section>
+        </div>
     </div>
 
     <script src="index.js"></script>
