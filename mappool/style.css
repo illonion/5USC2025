@@ -342,6 +342,16 @@ body {
     height: 66px;
     font-size: 2.5em;
 }
+/* ===========================
+   Crown
+=========================== */
+.crown {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
 
 /* ===========================
     Current Picker

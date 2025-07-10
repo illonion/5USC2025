@@ -281,6 +281,7 @@ socket.onmessage = event => {
             if (currentMappoolBeatmap && currentPickedTile) {
                 currentPickedTile.children[0].children[0].classList.add(`${winner}-win-overlay`)
                 currentPickedTile.children[0].children[0].classList.remove(`${loser}-win-overlay`)
+                currentPickedTile.children[2].setAttribute("src", `static/${winner === "left"? "red" : "blue"}-crown.png`)
             }
         }
         if (ipcState !== 4) {
@@ -613,6 +614,7 @@ function mappoolOverrideRemovePick() {
     currentTile.children[0].style.backgroundImage = "none"
     currentTile.children[1].style.backgroundColor = "#2a2c30"
     currentTile.children[1].textContent = ""
+    currentTile.children[2].style.display = "none"
 }
 
 // Set Mappool Override Team Winner
@@ -628,6 +630,8 @@ function mappoolOverrideSetWinner() {
 
     currentTile.children[0].children[0].classList.add(`${teamWinner}-win-overlay`)
     currentTile.children[0].children[0].classList.remove(`${teamLoser}-win-overlay`)
+    currentTile.children[2].style.display = "block"
+    currentTile.children[2].setAttribute("src", `static/${teamWinner === "left"? "red" : "blue"}-crown.png`)
 }
 
 // Set Mappool Override Remove Winner
@@ -638,4 +642,5 @@ function mappoolOverrideRemoveWinner() {
     const currentTile = currentMapooolContainer.children[mappoolOverrideTileNumber]
     currentTile.children[0].children[0].classList.remove(`left-win-overlay`)
     currentTile.children[0].children[0].classList.remove(`right-win-overlay`)
+    currentTile.children[2].style.display = "none"
 }
