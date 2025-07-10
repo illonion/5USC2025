@@ -161,6 +161,7 @@ function mapClickEvent(event) {
             if (currentBanImageContainer.children[i].dataset.id !== undefined) continue
             currentBanImageContainer.children[i].dataset.id = currentMapId
             currentBanImageContainer.children[i].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+            currentBanImageContainer.children[i].children[1].style.display = "block"
             currentBanTextContainer.children[i].textContent = `${currentMap.mod}${currentMap.order}`
             break
         }
@@ -294,7 +295,6 @@ socket.onmessage = event => {
         mappoolContainerLeftEl.querySelector(`[data-id="${currentId}"]`) ||
         mappoolContainerRightEl.querySelector(`[data-id="${currentId}"]`)
     )
-    console.log(mapCheck)
     if (mapCheck) {
         currentPickerEl.style.display = "block"
         let element, index, parent
@@ -562,6 +562,7 @@ function mappoolOverrideSetBan() {
     const currentBanImage = currentBanImageContainer.children[mappoolOverrideTileNumber]
     currentBanImage.dataset.id = mappoolOverrideMap
     currentBanImage.style.backgroundImage =  `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+    currentBanImage.children[1].style.display = "block"
     currentBanTextContainer.children[mappoolOverrideTileNumber].textContent = `${currentMap.mod}${currentMap.order}`
 }
 
@@ -577,6 +578,7 @@ function mappoolOverrideRemoveBan() {
     const currentBanImage = currentBanImageContainer.children[mappoolOverrideTileNumber]
     currentBanImage.removeAttribute("data-id")
     currentBanImage.style.backgroundImage = "none"
+    currentBanImage.children[1].style.display = "none"
     currentBanTextContainer.children[mappoolOverrideTileNumber].textContent = ``
 }
 
