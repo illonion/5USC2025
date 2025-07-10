@@ -344,6 +344,17 @@ body {
 }
 
 /* ===========================
+    Current Picker
+=========================== */
+.current-picker {
+    position: absolute;
+    left: 50%;
+    top: 468px;
+    transform: translateX(-50%);
+    transition: 500ms ease-in-out;
+}
+
+/* ===========================
     Iframe
 =========================== */
 iframe {
