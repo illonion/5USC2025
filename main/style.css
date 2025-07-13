@@ -100,6 +100,23 @@
 /* ===========================
    Greenscreens
 =========================== */
+#bg-video {
+	clip-path: polygon(
+		0px 143px,
+		480px 143px,
+		480px calc(143px + 360px),
+		calc(1920px - 480px) calc(143px + 360px),
+		calc(1920px - 480px) 143px,
+		1920px 143px,
+		1920px 0px,
+		0px 0px,
+		0px 1080px,
+		1920px 1080px,
+		1920px calc(143px + 2*360px),
+		0px calc(143px + 2*360px)
+	)
+}
+
 .greenscreen {
     position: absolute;
     height: var(--greenscreen-height);

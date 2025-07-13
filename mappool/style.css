@@ -18,18 +18,32 @@
     font-weight: 700;
 }
 
+/* ===========================
+   Body
+=========================== */
 body {
     font-family: "Dogica";
     font-weight: 400;
 }
 
+/* ===========================
+   Video
+=========================== */
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* ===========================
+   Main
+=========================== */
 .main {
     position: absolute;
     top: 0;
     left: 0;
     width: 1920px;
     height: 1080px;
-    background-image: url("static/background.png");
+    /* background-image: url("static/background.png"); */
     background-size: cover;
     background-position: center;
 }
@@ -307,7 +321,11 @@ body {
     background-position: center;
     overflow: hidden;
 }
-.mappool-container-tile-tiebreaker { height: 658px; }
+.mappool-container-tile-tiebreaker { 
+    height: 658px;
+    background-size: cover;
+    background-position: center;
+}
 /* ===========================
    Tile Background
 =========================== */

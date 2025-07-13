@@ -102,12 +102,26 @@ socket.onmessage = event => {
                     ar = Math.min(Math.round(ar * 1.4 * 10) / 10, 10)
                     hp = Math.min(Math.round(hp * 1.4 * 10) / 10, 10)
                     od = Math.min(Math.round(od * 1.4 * 10) / 10, 10)
+					break
                 case "DT":
                     if (ar > 5) ar = Math.round((((1200 - (( 1200 - (ar - 5) * 150) * 2 / 3)) / 150) + 5) * 10) / 10
                     else ar = Math.round((1800 - ((1800 - ar * 120) * 2 / 3)) / 120 * 10) / 10
                     od = Math.round((79.5 - (( 79.5 - 6 * od) * 2 / 3)) / 6 * 10) / 10
                     bpm = Math.round(bpm * 1.5)
                     len = Math.round(len / 1.5)
+					break
+				case "HRDT":
+				case "DTHR":
+					cs = Math.min(Math.round(cs * 1.3 * 10) / 10, 10)
+                    ar = Math.min(Math.round(ar * 1.4 * 10) / 10, 10)
+                    hp = Math.min(Math.round(hp * 1.4 * 10) / 10, 10)
+                    od = Math.min(Math.round(od * 1.4 * 10) / 10, 10)
+                    if (ar > 5) ar = Math.round((((1200 - (( 1200 - (ar - 5) * 150) * 2 / 3)) / 150) + 5) * 10) / 10
+                    else ar = Math.round((1800 - ((1800 - ar * 120) * 2 / 3)) / 120 * 10) / 10
+                    od = Math.round((79.5 - (( 79.5 - 6 * od) * 2 / 3)) / 6 * 10) / 10
+                    bpm = Math.round(bpm * 1.5)
+                    len = Math.round(len / 1.5)
+					break
             }
 
             statsSrEl.textContent = `${sr}*`

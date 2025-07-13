@@ -263,6 +263,16 @@ socket.onmessage = event => {
             else currentScoreRight += currentScore
         }
     }
+	
+	if (currentStarLeft != data.tourney.points.left || currentStarRight != data.tourney.points.right) {
+		currentStarLeft = data.tourney.points.left
+		currentStarRight = data.tourney.points.right
+		
+		teamStarContainerLeft.innerHTML = ""
+		teamStarContainerRight.innerHTML = ""
+		teamStarContainerLeft.append(createStars("left", currentStarLeft))
+		teamStarContainerRight.append(createStars("right", currentStarRight))
+	}
 
     // Update IPC State
     if (ipcState !== data.tourney.ipcState) {
@@ -602,11 +612,7 @@ function mappoolOverrideSetPick() {
 
 // Mappool Override Remove Pick
 function mappoolOverrideRemovePick() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
-
-    // Get current map
-    const currentMap = findBeatmaps(mappoolOverrideMap)
-    if (!currentMap) return
+    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber) return
 
     // Set map information
     const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
