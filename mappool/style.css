@@ -43,7 +43,7 @@ video {
     left: 0;
     width: 1920px;
     height: 1080px;
-    /* background-image: url("static/background.png"); */
+    background-image: url("static/background.png");
     background-size: cover;
     background-position: center;
 }
@@ -152,6 +152,29 @@ video {
     top: 100px;
 }
 .team-star-bo9-4 {
+    left: 96px;
+    top: 0px;
+}
+/* ===========================
+   Best of 11
+=========================== */
+.team-star-bo11-1 {
+    left: 27px;
+    top: 0;
+}
+.team-star-bo11-2 {
+    left: 0px;
+    top: 56px;
+}
+.team-star-bo11-3 {
+    left: 62px;
+    top: 109px;
+}
+.team-star-bo11-4 {
+    left: 123px;
+    top: 56px;
+}
+.team-star-bo11-5 {
     left: 96px;
     top: 0px;
 }
