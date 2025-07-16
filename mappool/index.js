@@ -110,9 +110,13 @@ function toggleStars() {
     if (!isStarToggled) {
         teamStarContainerLeft.style.display = "none"
         teamStarContainerRight.style.display = "none"
+        toggleStarsEl.classList.add("toggle-inactive")
+        toggleStarsEl.classList.remove("toggle-active")
     } else {
         teamStarContainerLeft.style.display = "block"
         teamStarContainerRight.style.display = "block"
+        toggleStarsEl.classList.add("toggle-active")
+        toggleStarsEl.classList.remove("toggle-inactive")
     }
 }
 
@@ -334,9 +338,16 @@ let isAutopickToggled = false
 function toggleAutopick() {
     isAutopickToggled = !isAutopickToggled
     toggleAutopickEl.textContent = `TOGGLE AUTOPICK: ${isAutopickToggled? "ON": "OFF"}`
+    if (isAutopickToggled) {
+        toggleAutopickEl.classList.remove("toggle-inactive")
+        toggleAutopickEl.classList.add("toggle-active")
+    } else {
+        toggleAutopickEl.classList.add("toggle-inactive")
+        toggleAutopickEl.classList.remove("toggle-active")
+    }
 }
 
-// TODO: Set Next Picker
+// Next Picker
 const nextPickerEl = document.getElementById("next-picker")
 let currentNextPicker = "none"
 function setNextPicker(pickerTeam) {
@@ -653,9 +664,18 @@ function mappoolOverrideRemoveWinner() {
 }
 
 // League Select
-const majorLeagueEl = document.getElementById("league-name")
+const leagueNameEl = document.getElementById("league-name")
+const majorLeagueButtonEl = document.getElementById("major-league-button")
+const minorLeagueButtonEl = document.getElementById("minor-league-button")
 document.cookie = `leagueName=major; path=/`
 function setLeague(league) {
-    majorLeagueEl.textContent = `${league.toUpperCase()} LEAGUE`
+    leagueNameEl.textContent = `${league.toUpperCase()} LEAGUE`
     document.cookie = `leagueName=${league}; path=/`
+    if (league === "major") {
+        majorLeagueButtonEl.classList.add("toggle-active")
+        minorLeagueButtonEl.classList.remove("toggle-active")
+    } else {
+        majorLeagueButtonEl.classList.remove("toggle-active")
+        minorLeagueButtonEl.classList.add("toggle-active")
+    }
 }

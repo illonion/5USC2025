@@ -178,7 +178,7 @@
                     <button onclick="updateStarCount('left','plus')">RED ++</button>
                     <button onclick="updateStarCount('right','minus')">BLUE --</button>
                     <button onclick="updateStarCount('right','plus')">BLUE ++</button>
-                    <button class="full-width-button" id="toggle-stars" onclick="toggleStars()">TOGGLE STARS: ON</button>
+                    <button class="full-width-button toggle-active" id="toggle-stars" onclick="toggleStars()">TOGGLE STARS: ON</button>
                 </div>
             </section>
             <section class="sidebar-section">
@@ -188,14 +188,14 @@
                     <button onclick="setNextPicker('left')">RED</button>
                     <button onclick="setNextPicker('right')">BLUE</button>
                     <button class="full-width-button" id="next-picker-none" onclick="setNextPicker('none')">NO ONE</button>
-                    <button class="full-width-button" id="toggle-autopick" onclick="toggleAutopick()">TOGGLE AUTOPICK: OFF</button>
+                    <button class="full-width-button toggle-inactive" id="toggle-autopick" onclick="toggleAutopick()">TOGGLE AUTOPICK: OFF</button>
                 </div>
             </section>
             <section class="sidebar-section">
                 <h1>League Select</h1>
                 <div class="sidebar-button-container">
-                    <button onclick="setLeague('major')">MAJOR</button>
-                    <button onclick="setLeague('minor')">MINOR</button>
+                    <button onclick="setLeague('major')" id="major-league-button" class="toggle-active">MAJOR</button>
+                    <button onclick="setLeague('minor')" id="minor-league-button">MINOR</button>
                 </div>
             </section>
         </div>

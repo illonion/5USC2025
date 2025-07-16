@@ -510,7 +510,7 @@ iframe {
 /* ===========================
     Button
 =========================== */
-.sidebar-button-container button {
+button {
     width: 105px;
     height: 30px;
     font-family: "Dogica";
@@ -564,3 +564,9 @@ iframe {
     text-align: center;
     line-height: 30px;
 }
+
+/* ===========================
+    Toggle Stars
+=========================== */
+.toggle-active { background-color: rgb(32, 121, 44); }
+.toggle-inactive { background-color: rgb(121, 32, 32); }
