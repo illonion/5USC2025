@@ -18,7 +18,7 @@
     <div class="main">
         <!-- Top Section -->
         <img class="logo" src="../_shared/assets/logo.png">
-        <div class="round-name" id="round-name"></div>
+        <div class="round-name"><span id="round-name"></span> - <span class="league-name" id="league-name">MAJOR LEAGUE</span></div>
 
         <!-- Tickets -->
         <img class="ticket ticket-left" src="static/red-ticket.png">
@@ -33,7 +33,7 @@
         </div>
 
         <!-- Team Names -->
-        <div class="team-name team-name-left" id="team-name-left"></div>f
+        <div class="team-name team-name-left" id="team-name-left"></div>
         <div class="team-name team-name-right" id="team-name-right"></div>
 
         <!-- Stars -->
@@ -174,10 +174,10 @@
             <section class="sidebar-section">
                 <h1>Star Control</h1>
                 <div class="sidebar-button-container">
-                    <button onclick="updateStarCount('left','minus')">LEFT --</button>
-                    <button onclick="updateStarCount('left','plus')">LEFT ++</button>
-                    <button onclick="updateStarCount('right','minus')">RIGHT --</button>
-                    <button onclick="updateStarCount('right','plus')">RIGHT ++</button>
+                    <button onclick="updateStarCount('left','minus')">RED --</button>
+                    <button onclick="updateStarCount('left','plus')">RED ++</button>
+                    <button onclick="updateStarCount('right','minus')">BLUE --</button>
+                    <button onclick="updateStarCount('right','plus')">BLUE ++</button>
                     <button class="full-width-button" id="toggle-stars" onclick="toggleStars()">TOGGLE STARS: ON</button>
                 </div>
             </section>
@@ -185,10 +185,17 @@
                 <h1>Next Picker</h1>
                 <p id="next-picker" style="font-size: 1.2em;"></p>
                 <div class="sidebar-button-container">
-                    <button onclick="setNextPicker('left')">LEFT</button>
-                    <button onclick="setNextPicker('right')">RIGHT</button>
+                    <button onclick="setNextPicker('left')">RED</button>
+                    <button onclick="setNextPicker('right')">BLUE</button>
                     <button class="full-width-button" id="next-picker-none" onclick="setNextPicker('none')">NO ONE</button>
                     <button class="full-width-button" id="toggle-autopick" onclick="toggleAutopick()">TOGGLE AUTOPICK: OFF</button>
+                </div>
+            </section>
+            <section class="sidebar-section">
+                <h1>League Select</h1>
+                <div class="sidebar-button-container">
+                    <button onclick="setLeague('major')">MAJOR</button>
+                    <button onclick="setLeague('minor')">MINOR</button>
                 </div>
             </section>
         </div>

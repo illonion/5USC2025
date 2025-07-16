@@ -7,12 +7,12 @@ let currentLeftTeamName, currentRightTeamName
 
 // Beatmap information
 const titleEl = document.getElementById("title")
+const roundNameContainerEl = document.getElementById("round-name-container")
 const roundNameEl = document.getElementById("round-name")
 let allBeatmaps
 async function getBeatmaps() {
     const response = await axios.get("../_data/beatmaps.json")
     allBeatmaps = response.data.beatmaps
-
     roundNameEl.textContent = response.data.roundName
 }
 getBeatmaps()
@@ -177,13 +177,13 @@ socket.onmessage = event => {
 
         if (scoreVisible) {
             titleEl.style.top = "237px"
-            roundNameEl.style.top = "310px"
+            roundNameContainerEl.style.top = "310px"
             nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height) - var(--middle-now-playing-section-height))`
             scoresContainerEl.style.top = "0px"
             iframe.style.bottom = "-263px"
         } else {
             titleEl.style.top = "257px"
-            roundNameEl.style.top = "354px"
+            roundNameContainerEl.style.top = "354px"
             nowPlayingSectionEl.style.top = `calc(var(--greenscreen-player-1-4-top) + var(--greenscreen-height)`
             scoresContainerEl.style.top = "-217px"
             iframe.style.bottom = "0px"
@@ -246,3 +246,14 @@ function setLengthDisplay(seconds) {
 
     return `${minuteCount.toString().padStart(2, "0")}:${secondCount.toString().padStart(2, "0")}`
 }
+
+// Interval stuff reading cookies and setting information
+const leagueNameEl = document.getElementById("league-name")
+let currentLeagueName, previousLeagueName
+setInterval(() => {
+    currentLeagueName = getCookie("leagueName")
+    if (currentLeagueName !== previousLeagueName) {
+        previousLeagueName = currentLeagueName
+        leagueNameEl.textContent = `${currentLeagueName} LEAGUE`
+    }
+}, 200)

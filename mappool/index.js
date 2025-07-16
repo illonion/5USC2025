@@ -341,7 +341,7 @@ const nextPickerEl = document.getElementById("next-picker")
 let currentNextPicker = "none"
 function setNextPicker(pickerTeam) {
     currentNextPicker = pickerTeam
-    nextPickerEl.textContent = pickerTeam.toUpperCase()
+    nextPickerEl.textContent = pickerTeam === "left" ? "RED" : "BLUE"
 }
 
 // Mappool override section
@@ -372,11 +372,11 @@ function mappoolOverrideChangeAction() {
             // Create red ban option
             const redBanOption = document.createElement("option")
             redBanOption.setAttribute("value",`left|ban|${i}`)
-            redBanOption.textContent = `Left Ban ${i + 1}`
+            redBanOption.textContent = `Red Ban ${i + 1}`
 
             const blueBanOption = document.createElement("option")
             blueBanOption.setAttribute("value",`right|ban|${i}`)
-            blueBanOption.textContent = `Right Ban ${i + 1}`
+            blueBanOption.textContent = `Blue Ban ${i + 1}`
 
             whichBanSelect.append(redBanOption, blueBanOption)
         }
@@ -421,11 +421,11 @@ function mappoolOverrideChangeAction() {
             // Create red ban option
             const redPickOption = document.createElement("option")
             redPickOption.setAttribute("value",`left|pick|${i}`)
-            redPickOption.textContent = `Left Pick ${i + 1}`
+            redPickOption.textContent = `Red Pick ${i + 1}`
 
             const bluePickOption = document.createElement("option")
             bluePickOption.setAttribute("value",`right|pick|${i}`)
-            bluePickOption.textContent = `Right Pick ${i + 1}`
+            bluePickOption.textContent = `Blue Pick ${i + 1}`
 
             whichPickSelect.append(redPickOption, bluePickOption)
         }
@@ -471,11 +471,11 @@ function mappoolOverrideChangeAction() {
             // Create red ban option
             const redPickOption = document.createElement("option")
             redPickOption.setAttribute("value",`left|pick|${i}`)
-            redPickOption.textContent = `Left Pick ${i + 1}`
+            redPickOption.textContent = `Red Pick ${i + 1}`
 
             const bluePickOption = document.createElement("option")
             bluePickOption.setAttribute("value",`right|pick|${i}`)
-            bluePickOption.textContent = `Right Pick ${i + 1}`
+            bluePickOption.textContent = `Blue Pick ${i + 1}`
 
             whichPickSelect.append(redPickOption, bluePickOption)
         }
@@ -650,4 +650,12 @@ function mappoolOverrideRemoveWinner() {
     currentTile.children[0].children[0].classList.remove(`left-win-overlay`)
     currentTile.children[0].children[0].classList.remove(`right-win-overlay`)
     currentTile.children[2].style.display = "none"
+}
+
+// League Select
+const majorLeagueEl = document.getElementById("league-name")
+document.cookie = `leagueName=major; path=/`
+function setLeague(league) {
+    majorLeagueEl.textContent = `${league.toUpperCase()} LEAGUE`
+    document.cookie = `leagueName=${league}; path=/`
 }
