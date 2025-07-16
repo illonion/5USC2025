@@ -262,37 +262,36 @@ socket.onmessage = event => {
             if (data.tourney.clients[i].team === "left") currentScoreLeft += currentScore
             else currentScoreRight += currentScore
         }
+
+        console.log(currentScoreLeft, currentScoreRight)
     }
-	
-	if (currentStarLeft != data.tourney.points.left || currentStarRight != data.tourney.points.right) {
-		currentStarLeft = data.tourney.points.left
-		currentStarRight = data.tourney.points.right
-		
-		teamStarContainerLeft.innerHTML = ""
-		teamStarContainerRight.innerHTML = ""
-		teamStarContainerLeft.append(createStars("left", currentStarLeft))
-		teamStarContainerRight.append(createStars("right", currentStarRight))
-	}
 
     // Update IPC State
     if (ipcState !== data.tourney.ipcState) {
         ipcState = data.tourney.ipcState
-        if (ipcState === 4 && checkedWinner && isStarToggled) {
+        console.log(ipcState, checkedWinner, isStarToggled)
+        if (ipcState === 4 && !checkedWinner && isStarToggled) {
             checkedWinner = true
 
+            console.log("hello!")
             // Set winner
             let winner = ""
             if (currentScoreLeft > currentScoreRight) winner = "left"
             else if (currentScoreLeft < currentScoreRight) winner = "right"
             const loser = winner === "left" ? "right" : "left"
+            console.log(winner)
+            console.log(loser)
             if (!winner) return
             updateStarCount(winner, "plus")
             
             // Set background to winning map
+            console.log(currentMappoolBeatmap)
+            console.log(currentPickedTile)
             if (currentMappoolBeatmap && currentPickedTile) {
                 currentPickedTile.children[0].children[0].classList.add(`${winner}-win-overlay`)
                 currentPickedTile.children[0].children[0].classList.remove(`${loser}-win-overlay`)
                 currentPickedTile.children[2].setAttribute("src", `static/${winner === "left"? "red" : "blue"}-crown.png`)
+                currentPickedTile.children[2].style.display = "block"
             }
         }
         if (ipcState !== 4) {
