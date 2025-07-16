@@ -99,6 +99,10 @@ function updateStarCount(side, action) {
         mappoolTileTiebreakerEl.children[1].style.backgroundColor = "#2a2c30"
         mappoolTileTiebreakerEl.children[1].textContent = ""
     }
+
+    document.cookie = `currentFirstTo=${currentFirstTo}; path=/`
+    document.cookie = `currentStarLeft=${currentStarLeft}; path=/`
+    document.cookie = `previousStarRight=${previousStarRight}; path=/`
 }
 
 // Star Toggle
@@ -266,8 +270,6 @@ socket.onmessage = event => {
             if (data.tourney.clients[i].team === "left") currentScoreLeft += currentScore
             else currentScoreRight += currentScore
         }
-
-        console.log(currentScoreLeft, currentScoreRight)
     }
 
     // Update IPC State
@@ -277,20 +279,15 @@ socket.onmessage = event => {
         if (ipcState === 4 && !checkedWinner && isStarToggled) {
             checkedWinner = true
 
-            console.log("hello!")
             // Set winner
             let winner = ""
             if (currentScoreLeft > currentScoreRight) winner = "left"
             else if (currentScoreLeft < currentScoreRight) winner = "right"
             const loser = winner === "left" ? "right" : "left"
-            console.log(winner)
-            console.log(loser)
             if (!winner) return
             updateStarCount(winner, "plus")
             
             // Set background to winning map
-            console.log(currentMappoolBeatmap)
-            console.log(currentPickedTile)
             if (currentMappoolBeatmap && currentPickedTile) {
                 currentPickedTile.children[0].children[0].classList.add(`${winner}-win-overlay`)
                 currentPickedTile.children[0].children[0].classList.remove(`${loser}-win-overlay`)

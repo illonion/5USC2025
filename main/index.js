@@ -57,7 +57,6 @@ const iframe = document.getElementById("iframe")
 // Star containers
 const leftTeamStarContainerEl = document.getElementById("left-team-star-container")
 const rightTeamStarContainerEl = document.getElementById("right-team-star-container")
-let currentBestOf = 0, currentFirstTo = 0, currentStarLeft = 0, currentStarRight = 0
 
 // Socket
 const socket = createTosuWsSocket()
@@ -176,42 +175,6 @@ socket.onmessage = event => {
             iframe.style.bottom = "0px"
         }
     }
-
-    // Stars Container
-    if (currentBestOf !== data.tourney.bestOF ||
-        currentStarLeft !== data.tourney.points.left ||
-        currentStarRight !== data.tourney.points.right
-    ) {
-        // Set details
-        currentBestOf = data.tourney.bestOF
-        currentFirstTo = Math.ceil(currentBestOf / 2)
-        currentStarLeft = data.tourney.points.left
-        currentStarRight = data.tourney.points.right
-
-        leftTeamStarContainerEl.innerHTML = ""
-        rightTeamStarContainerEl.innerHTML = ""
-
-        let i = 0
-        for (i; i < currentFirstTo; i++) {
-            leftTeamStarContainerEl.append(createStar(i, "left", `${i < currentStarLeft? "fill" : "empty"}`))
-        }
-
-        i = 0
-        for (i; i < currentFirstTo; i++) {
-            rightTeamStarContainerEl.append(createStar(i, "right", `${i < currentStarRight? "fill" : "empty"}`))
-        }
-
-        function createStar(index, side, attr) {
-            const teamStar = document.createElement("div")
-            teamStar.classList.add("team-star")
-
-            const image = document.createElement("img")
-            image.setAttribute("src", `../_shared/assets/points/${index === currentFirstTo - 1 ? "big" : "small"}_star_${side}_${attr}.png`)
-
-            teamStar.append(image)
-            return teamStar
-        }
-    }
 }
 
 // Set flag and team name
@@ -237,10 +200,48 @@ function setLengthDisplay(seconds) {
 // Interval stuff reading cookies and setting information
 const leagueNameEl = document.getElementById("league-name")
 let currentLeagueName, previousLeagueName
+let currentFirstTo, previousFirstTo
+let currentStarLeft, previousStarLeft
+let currentStarRight, previousStarRight
 setInterval(() => {
+    // Set league name
     currentLeagueName = getCookie("leagueName")
     if (currentLeagueName !== previousLeagueName) {
         previousLeagueName = currentLeagueName
         leagueNameEl.textContent = `${currentLeagueName} LEAGUE`
+    }
+
+    // Set stars
+    currentFirstTo = Number(getCookie("currentFirstTo"))
+    currentStarLeft = Number(getCookie("currentStarLeft"))
+    currentStarRight = Number(getCookie("previousStarRight"))
+    if (currentFirstTo !== previousFirstTo ||
+        currentStarLeft !== previousStarLeft ||
+        currentStarRight !== previousStarRight
+    ) {
+        previousFirstTo = currentFirstTo
+        previousStarLeft = currentStarLeft
+        previousStarRight = currentStarRight
+
+        leftTeamStarContainerEl.innerHTML = ""
+        rightTeamStarContainerEl.innerHTML = ""
+
+        let i = 0
+        for (i; i < currentFirstTo; i++) {
+            leftTeamStarContainerEl.append(createStar(i, "left", `${i < currentStarLeft? "fill" : "empty"}`))
+            rightTeamStarContainerEl.append(createStar(i, "right", `${i < currentStarRight? "fill" : "empty"}`))
+        }
+
+        // Create star
+        function createStar(index, side, attr) {
+            const teamStar = document.createElement("div")
+            teamStar.classList.add("team-star")
+
+            const image = document.createElement("img")
+            image.setAttribute("src", `../_shared/assets/points/${index === currentFirstTo - 1 ? "big" : "small"}_star_${side}_${attr}.png`)
+
+            teamStar.append(image)
+            return teamStar
+        }
     }
 }, 200)
