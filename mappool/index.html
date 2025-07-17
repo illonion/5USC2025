@@ -227,6 +227,21 @@
                 </select>
             </section>
         </div>
+        <div class="divider divider-3"></div>
+        <div class="column column-4">
+            <section class="sidebar-section">
+                <h1>Scene Management</h1>
+                <div class="sidebar-button-container">
+                    <button id="auto-advance-button" class="toggle-inactive full-width-button" onclick="switchAutoAdvance()">AUTO ADVANCE: OFF</button>
+                </div>
+                <h2>Scenes<br>(click to override)</h2>
+                <div class="sidebar-button-container" id="sceneCollection">
+                    <template id="sceneButtonTemplate">
+                        <button class="full-width-button">SWITCH TO __SCENE_NAME__</button>
+                    </template>
+                </div>
+            </section>
+        </div>
     </div>
 
     <script src="index.js"></script>

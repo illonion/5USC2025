@@ -443,7 +443,7 @@ iframe {
     position: absolute;
     top: 0;
     left: 1920px;
-    width: 750px;
+    width: 1000px;
     height: 1080px;
     background-color: #26272B;
 }
@@ -456,6 +456,7 @@ iframe {
 }
 .column-2 { left: 250px; }
 .column-3 { left: 500px; }
+.column-4 { left: 750px; }
 /* ===========================
     Divider
 =========================== */
@@ -467,6 +468,7 @@ iframe {
 }
 .divider-1 { left: 249px; }
 .divider-2 { left: 499px; }
+.divider-3 { left: 749px; }
 /* ===========================
     Sidebar Section
 =========================== */
@@ -528,7 +530,7 @@ button {
 /* ===========================
     Full Width Button
 =========================== */
-#toggle-autopick, #toggle-stars, #next-picker-none, #apply-changes { width: 220px; }
+#toggle-autopick, #toggle-stars, #next-picker-none, #apply-changes, .full-width-button { width: 220px; }
 /* ===========================
     Mappool Override Select
 =========================== */
@@ -570,3 +572,12 @@ button {
 =========================== */
 .toggle-active { background-color: rgb(32, 121, 44); }
 .toggle-inactive { background-color: rgb(121, 32, 32); }
+
+/* ===========================
+    Scene Switching
+=========================== */
+#sceneCollection button {
+    height: 60px;
+    font-size: 0.8em;
+    line-height: 15px;
+}

@@ -135,7 +135,7 @@ const mappoolContainerLeftEl = document.getElementById("mappool-container-left")
 const mappoolContainerRightEl = document.getElementById("mappool-container-right")
 
 // Map Click Event
-function mapClickEvent(event) {
+async function mapClickEvent(event) {
     // Figure out whether it is a pick or ban
     const currentMapId = this.dataset.id
     const currentMap = findBeatmaps(currentMapId)
@@ -187,6 +187,14 @@ function mapClickEvent(event) {
             currentPickedTile = currentMapooolContainer.children[i]
             break
         }
+
+        await delay(10000)
+        if (enableAutoAdvance) {
+            obsGetCurrentScene((currentScene) => {
+                if (currentScene.name === gameplay_scene_name) return
+                obsSetCurrentScene(gameplay_scene_name)
+            })
+        }
     }
 }
 
@@ -199,7 +207,7 @@ let currentLeftTeamName, currentRightTeamName
 let currentScoreLeft, currentScoreRight
 
 // IPC State + Checked Winner
-let ipcState, checkedWinner = false
+let currentIpcState, previousIpcState, checkedWinner = false
 
 // Now Playing Information
 let currentId, currentChecksum, currentMappoolBeatmap, currentPickedTile
@@ -251,7 +259,10 @@ socket.onmessage = event => {
     }
 
     // Set current scores
-    if (ipcState === 2 || ipcState === 3) {
+    if (currentIpcState === 2 || currentIpcState === 3) {
+        // Auto switch to gameplay no matter what
+        obsSetCurrentScene(gameplay_scene_name)
+
         currentScoreLeft = 0
         currentScoreRight = 0
         
@@ -274,10 +285,11 @@ socket.onmessage = event => {
     }
 
     // Update IPC State
-    if (ipcState !== data.tourney.ipcState) {
-        ipcState = data.tourney.ipcState
-        console.log(ipcState, checkedWinner, isStarToggled)
-        if (ipcState === 4 && !checkedWinner && isStarToggled) {
+    if (currentIpcState !== data.tourney.ipcState) {
+        currentIpcState = data.tourney.ipcState
+        
+        // Results screen
+        if (currentIpcState === 4 && !checkedWinner && isStarToggled) {
             checkedWinner = true
 
             // Set winner
@@ -296,9 +308,36 @@ socket.onmessage = event => {
                 currentPickedTile.children[2].style.display = "block"
             }
         }
-        if (ipcState !== 4) {
+
+        // Non results screen
+        if (currentIpcState !== 4) {
             checkedWinner = false
+
+            // If no winners yet, then go to mappool scene
+            // If winners, then go to winner scene
+            // Generally this triggers when enableAutoAdvance is turned on and ipcState === 1 (from results screen)
+            if (previousIpcState === 4 &&
+                currentIpcState !== previousIpcState &&
+                enableAutoAdvance &&
+                currentStarLeft !== currentFirstTo &&
+                currentStarRight !== currentFirstTo
+            ) {
+                obsGetCurrentScene((scene) => {
+                    if (scene.name === mappool_scene_name) return
+                    obsSetCurrentScene(mappool_scene_name)
+                })
+            } else if (previousIpcState === 4 &&
+                currentIpcState !== previousIpcState &&
+                enableAutoAdvance
+            ) {
+                obsGetCurrentScene((scene) => {
+                    if (scene.name === winner_scene_name) return
+                    obsSetCurrentScene(winner_scene_name)
+                })
+            }
         }
+
+        previousIpcState = currentIpcState
     }
 
     // Set current picker
@@ -677,3 +716,52 @@ function setLeague(league) {
         minorLeagueButtonEl.classList.add("toggle-active")
     }
 }
+
+
+// OBS Information
+const sceneCollection = document.getElementById("sceneCollection")
+let autoadvance_button = document.getElementById('auto-advance-button')
+let autoadvance_timer_label = document.getElementById('autoAdvanceTimerLabel')
+const pick_to_transition_delay_ms = 10000;
+let enableAutoAdvance = false
+const gameplay_scene_name = "Gameplay"
+const mappool_scene_name = "Mappool"
+const winner_scene_name = "Winner"
+
+let sceneTransitionTimeoutID
+
+function switchAutoAdvance() {
+    enableAutoAdvance = !enableAutoAdvance
+    if (enableAutoAdvance) {
+        autoadvance_button.innerText = 'AUTO ADVANCE: ON'
+        autoadvance_button.classList.add("toggle-active")
+        autoadvance_button.classList.remove("toggle-inactive")
+    } else {
+        autoadvance_button.innerText = 'AUTO ADVANCE: OFF'
+        autoadvance_button.classList.remove("toggle-active")
+        autoadvance_button.classList.add("toggle-inactive")
+    }
+}
+
+const obsGetCurrentScene = window.obsstudio?.getCurrentScene ?? (() => {})
+const obsGetScenes = window.obsstudio?.getScenes ?? (() => {})
+const obsSetCurrentScene = window.obsstudio?.setCurrentScene ?? (() => {})
+
+obsGetScenes(scenes => {
+    for (const scene of scenes) {
+        let clone = document.getElementById("sceneButtonTemplate").content.cloneNode(true)
+        let buttonNode = clone.querySelector('button')
+        buttonNode.id = `scene__${scene}`
+        buttonNode.textContent = `GO TO: ${scene}`
+        buttonNode.onclick = function() { obsSetCurrentScene(scene); }
+        sceneCollection.appendChild(clone)
+    }
+
+    obsGetCurrentScene((scene) => { document.getElementById(`scene__${scene.name}`).classList.add("active-scene") })
+})
+
+window.addEventListener('obsSceneChanged', function(event) {
+    let activeButton = document.getElementById(`scene__${event.detail.name}`)
+    for (const scene of sceneCollection.children) { scene.classList.remove("toggle-active") }
+    activeButton.classList.add("toggle-active")
+})
