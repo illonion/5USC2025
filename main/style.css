@@ -167,6 +167,8 @@
     padding-left: var(--middle-now-playing-top-section-padding-left);
     width: calc(100% - var(--middle-now-playing-top-section-padding-left));
 }
+.now-playing-top-section-left { background-color: rgba(204, 78, 78, 0.4)}
+.now-playing-top-section-right { background-color: rgba(28, 76, 143, 0.4)}
 
 /* ===========================
    Now Playing Line Break
@@ -340,3 +342,63 @@ iframe {
     transition: 500ms ease-in-out;
     border: none;
 }
+
+/* ===========================
+    Sidebar
+=========================== */
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 1920px;
+    width: 250px;
+    height: 1080px;
+    background-color: #26272B;
+    font-family: "Dogica";
+    font-weight: 400;
+}
+/* ===========================
+    Sidebar Section
+=========================== */
+.sidebar-section {
+    border-bottom: 2px solid white;
+    padding-bottom: 20px;
+}
+/* ===========================
+    Texts
+=========================== */
+.sidebar-section h1 {
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    line-height: 30px;
+}
+/* ===========================
+    Button Container
+=========================== */
+.sidebar-button-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+/* ===========================
+    Button
+=========================== */
+button {
+    width: 105px;
+    height: 30px;
+    font-family: "Dogica";
+    font-weight: 400;
+    font-size: 0.6em;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+.sidebar-button-container button:active {
+    background-color: white;
+    color: #26272B;
+}
+.full-width-button { width: 220px; }

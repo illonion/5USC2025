@@ -203,6 +203,7 @@ let currentLeagueName, previousLeagueName
 let currentFirstTo, previousFirstTo
 let currentStarLeft, previousStarLeft
 let currentStarRight, previousStarRight
+let currentPicker, previousPicker
 setInterval(() => {
     // Set league name
     currentLeagueName = getCookie("leagueName")
@@ -244,4 +245,28 @@ setInterval(() => {
             return teamStar
         }
     }
+
+    // Set current picker
+    currentPicker = getCookie("currentPicker")
+    if (currentPicker !== previousPicker) {
+        previousPicker = currentPicker
+        setCurrentPicker(currentPicker)
+    }
 }, 200)
+
+// Set current picker
+function setCurrentPicker(team) {
+    const currentPickerTeam = team
+    const otherTeam = currentPickerTeam === "left" ? "right" : currentPickerTeam === "right" ? "left" : ""
+    
+    if (otherTeam === "") {
+        console.log("do we meet this condition")
+        nowPlayingTopSectionEl.classList.remove(`now-playing-top-section-left`)
+        nowPlayingTopSectionEl.classList.remove(`now-playing-top-section-right`)
+        document.cookie = `currentPicker=""; path=/`
+    } else {
+        nowPlayingTopSectionEl.classList.add(`now-playing-top-section-${currentPickerTeam}`)
+        nowPlayingTopSectionEl.classList.remove(`now-playing-top-section-${otherTeam}`)
+        document.cookie = `currentPicker=${team}; path=/`
+    }
+}

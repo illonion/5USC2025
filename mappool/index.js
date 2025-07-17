@@ -188,6 +188,10 @@ async function mapClickEvent(event) {
             break
         }
 
+        // Set picker
+        document.cookie = `currentPicker=${team}; path=/`
+
+        // Go to gameplay scene
         await delay(10000)
         if (enableAutoAdvance) {
             obsGetCurrentScene((currentScene) => {
