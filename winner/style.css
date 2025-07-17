@@ -3,6 +3,10 @@
     src: url("../font/dogica.woff2");
     font-weight: 400;
 }
+@font-face {
+    font-family: "Ancient Egyptian Hieroglyphs";
+    src: url("../font/AncientEgyptianHieroglyphs.otf")
+}
 
 :root {
     --border-alignment: 10px;
@@ -204,3 +208,8 @@ position: absolute;
     font-size: 28px;
     width: 420px;
 }
+
+/* ===========================
+    League Name
+=========================== */
+.league-name { font-family: "Ancient Egyptian Hieroglyphs" }

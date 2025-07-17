@@ -214,7 +214,7 @@ setInterval(() => {
     // Set stars
     currentFirstTo = Number(getCookie("currentFirstTo"))
     currentStarLeft = Number(getCookie("currentStarLeft"))
-    currentStarRight = Number(getCookie("previousStarRight"))
+    currentStarRight = Number(getCookie("currentStarRight"))
     if (currentFirstTo !== previousFirstTo ||
         currentStarLeft !== previousStarLeft ||
         currentStarRight !== previousStarRight

@@ -102,7 +102,7 @@ function updateStarCount(side, action) {
 
     document.cookie = `currentFirstTo=${currentFirstTo}; path=/`
     document.cookie = `currentStarLeft=${currentStarLeft}; path=/`
-    document.cookie = `previousStarRight=${previousStarRight}; path=/`
+    document.cookie = `currentStarRight=${currentStarRight}; path=/`
 }
 
 // Star Toggle
@@ -211,16 +211,17 @@ const currentPickerEl = document.getElementById("current-picker")
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    console.log(data)
 
     // Team information
     if (currentLeftTeamName !== data.tourney.team.left) {
         currentLeftTeamName = data.tourney.team.left
         leftTeamNameEl.textContent = currentLeftTeamName.toUpperCase()
+        document.cookie = `currentLeftTeamName=${currentLeftTeamName}; path=/`
     }
     if (currentRightTeamName !== data.tourney.team.right) {
         currentRightTeamName = data.tourney.team.right
         rightTeamNameEl.textContent = currentRightTeamName.toUpperCase()
+        document.cookie = `currentRightTeamName=${currentRightTeamName}; path=/`
     }
 
     // Mappool map

@@ -6,11 +6,17 @@
     <title>Winner</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="../_shared/utils.js"></script>
 </head>
 <body>
+    
+    <!-- Video -->
     <video autoplay loop muted>
         <source src="../_shared/assets/background.mp4">
     </video>
+
     <div class="main">
         <!-- Borders -->
         <div class="border start-top start-left border-horizontal"></div>
@@ -21,7 +27,7 @@
         <!-- Top Area -->
         <div class="background-stripe background-stripe-blue"></div>
         <img class="logo" src="../_shared/assets/logo.png">
-        <div class="round-name-container">ROUND OF 32: MATCH WINNER</div>
+        <div class="round-name-container"><span id="round-name"></span>: MATCH WINNER</div>
 
         <!-- Thank you Text -->
         <section class="thank-you-section">
@@ -30,11 +36,11 @@
         </section>
 
         <!-- Flag -->
-        <img class="flag" src="../flags/Hawaii A.png">
+        <img class="flag" id="logo" src="../flags/Hawaii A.png">
 
         <!-- Team Information -->
-        <div class="team-name"></div>
-        <div class="team-player-names-container">
+        <div class="team-name" id="team-name"></div>
+        <div class="team-player-names-container" id="team-player-names-container">
             <div class="team-player-name"></div>
             <div class="team-player-name"></div>
             <div class="team-player-name"></div>
