@@ -23,21 +23,22 @@ getBeatmaps()
 const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.beatmap_id) === Number(beatmapId))
 
 // Team Related Stuff
+const backgroundStripeEl = document.getElementById("background-stripe")
 const logoEl = document.getElementById("logo")
 const teamNameEl = document.getElementById("team-name")
 const teamPlayerNameContainerEl = document.getElementById("team-player-names-container")
 let currentStarLeft, previousStarLeft
 let currentStarRight, previousStarRight
-let currentLeftTeamName, previousLeftTeamName
-let currentRightTeamName, previousRightTeamName
+let currentLeftTeamName
+let currentRightTeamName
 setInterval(() => {
     // Set team name
     currentLeftTeamName = getCookie("currentLeftTeamName")
-    currentRightTeamName = getCookie("previousRightTeamName")
+    currentRightTeamName = getCookie("currentRightTeamName")
     
     // Star
-    currentStarLeft = Number("currentStarLeft")
-    currentStarRight = Number("currentStarRight")
+    currentStarLeft = Number(getCookie("currentStarLeft"))
+    currentStarRight = Number(getCookie("currentStarRight"))
 
     if (currentStarLeft !== previousStarLeft ||
         currentStarRight !== previousStarRight
@@ -47,8 +48,12 @@ setInterval(() => {
         
         if (currentStarLeft > currentStarRight) {
             updateTeamDisplay(currentLeftTeamName)
+            backgroundStripeEl.classList.add("background-stripe-red")
+            backgroundStripeEl.classList.remove("background-stripe-blue")
         } else if (currentStarRight > currentStarLeft) {
             updateTeamDisplay(currentRightTeamName)
+            backgroundStripeEl.classList.remove("background-stripe-red")
+            backgroundStripeEl.classList.add("background-stripe-blue")
         }
     }
 }, 200)
