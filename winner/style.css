@@ -1,0 +1,206 @@
+@font-face {
+    font-family: "Dogica";
+    src: url("../font/dogica.woff2");
+    font-weight: 400;
+}
+
+:root {
+    --border-alignment: 10px;
+    --border-width: 4px;
+}
+
+/* ===========================
+   Video
+=========================== */
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ===========================
+    Main
+=========================== */
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    font-family: "Dogica";
+}
+
+/* ===========================
+    Borders
+=========================== */
+.border { 
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+}
+.start-top { top: var(--border-alignment); }
+.start-bottom { bottom: var(--border-alignment); }
+.start-left { left: var(--border-alignment); }
+.start-right { right: var(--border-alignment); }
+.border-horizontal {
+    width: 1900px;
+    height: var(--border-width);
+}
+.border-vertical {
+    width: var(--border-width);
+    height: 1060px;
+}
+
+/* ===========================
+    Background Stripe
+=========================== */
+.background-stripe {
+    position: absolute;
+    top: 39px;
+    width: inherit;
+    height: 77px;
+}
+.background-stripe-blue { background-color: #1d4c8a; }
+.background-stripe-red { background-color: #75292D; }
+
+/* ===========================
+    Logo
+=========================== */
+.logo {
+    position: absolute;
+    top: 18px;
+    left: 22px;
+    width: 216px;
+    z-index: 2;
+}
+
+/* ===========================
+    Round Name Container
+=========================== */
+.round-name-container {
+    position: absolute;
+    top: 39px;
+    left: 300px;
+    line-height: 77px;
+    color: white;
+    font-size: 2em;
+}
+
+/* ===========================
+    Thank you text
+=========================== */
+.thank-you-section {
+    position: absolute;
+    top: 290px;
+    left: 35px;
+    width: 1850px;
+    height: 75px;
+    background-color: #2e313a;
+    overflow: hidden;
+}
+.thank-you-section > * {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 75px;
+    color: #f7e677;
+}
+.thank-you-text-one {
+    left: 0;
+    animation: thank-you-text-one 20s linear infinite;
+}
+.thank-you-text-two {
+    left: 100%;
+    animation: thank-you-text-two 20s linear infinite;
+}
+@keyframes thank-you-text-one {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+    45% {
+        left: -100%;
+        opacity: 1;
+    }
+    49% {
+        left: -100%;
+        opacity: 0;
+    }
+    50% {
+        left: 100%;
+        opacity: 0;
+    }
+    51% { opacity: 0; }
+    55% { opacity: 1; }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes thank-you-text-two {
+    0% {
+        left: 100%;
+        opacity: 0;
+    }
+    1% { opacity: 0; }
+    5% { opacity: 1; }
+    50% {
+        left: 0;
+        opacity: 1;
+    }
+    95% {
+        left: -100%;
+        opacity: 1;
+    }
+    99% {
+        left: -100%;
+        opacity: 0;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+/* ===========================
+    Flag
+=========================== */
+.flag {
+    position: absolute;
+    top: 509px;
+    left: 173px;
+    width: 623px;
+    height: 354px;
+    object-fit: fill;
+}
+
+/* ===========================
+    Team Name
+=========================== */
+.team-name {
+    position: absolute;
+    top: 509px;
+    left: 960px;
+    font-size: 72px;
+    color: white;
+    font-family: "Dogica";
+    line-height: 75px;
+}
+
+.team-player-names-container {
+position: absolute;
+    top: 753px;
+    left: 960px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 48px;
+}
+.team-player-name {
+    color: white;
+    font-family: "Dogica";
+    font-size: 28px;
+    width: 420px;
+}
