@@ -179,7 +179,7 @@ socket.onmessage = event => {
 
 // Set flag and team name
 function setFlagAndTeamName(teamName, teamNameElement, teamFlagElement) {
-    teamNameElement.textContent = teamName
+    teamNameElement.textContent = teamName.toUpperCase()
 
     // Set team flag
     teamFlagElement.setAttribute("src", `../flags/${teamName}.png`)

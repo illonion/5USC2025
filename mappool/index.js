@@ -216,11 +216,11 @@ socket.onmessage = event => {
     // Team information
     if (currentLeftTeamName !== data.tourney.team.left) {
         currentLeftTeamName = data.tourney.team.left
-        leftTeamNameEl.textContent = currentLeftTeamName
+        leftTeamNameEl.textContent = currentLeftTeamName.toUpperCase()
     }
     if (currentRightTeamName !== data.tourney.team.right) {
         currentRightTeamName = data.tourney.team.right
-        rightTeamNameEl.textContent = currentRightTeamName
+        rightTeamNameEl.textContent = currentRightTeamName.toUpperCase()
     }
 
     // Mappool map
