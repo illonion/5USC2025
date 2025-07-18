@@ -24,7 +24,6 @@ let chatLen = 0
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    // console.log(data)
 
     // Now Playing Information
     if ((currentId !== data.beatmap.id || currentChecksum !== data.beatmap.checksum) && allBeatmaps) {

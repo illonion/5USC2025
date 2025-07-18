@@ -62,7 +62,6 @@ const rightTeamStarContainerEl = document.getElementById("right-team-star-contai
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    console.log(data)
 
     // Team information
     if (currentLeftTeamName !== data.tourney.team.left) {
@@ -110,13 +109,15 @@ socket.onmessage = event => {
                 len = Math.round(len / 1.5)
             }
 
-            statsSrEl.textContent = `${sr}*`
-            statsLengthEl.textContent = setLengthDisplay(len)
-            statsArEl.textContent = ar
-            statsHpEl.textContent = hp
-            statsBpmEl.textContent = bpm
-            statsCsEl.textContent = cs
-            statsOdEl.textContent = od
+            setStats({
+                sr: sr,
+                len: len,
+                ar: ar,
+                hp: hp,
+                bpm: bpm,
+                cs: cs,
+                od: od
+            })
             mapFound = true
         } else {
             nowPlayingTopSectionEl.textContent = "NOW PLAYING"
@@ -124,13 +125,15 @@ socket.onmessage = event => {
     }
 
     if (!mapFound) {
-        statsSrEl.textContent = `${data.beatmap.stats.stars.total}*`
-        statsLengthEl.textContent = setLengthDisplay(Math.round((data.beatmap.time.lastObject - data.beatmap.time.firstObject) / 1000))
-        statsArEl.textContent = data.beatmap.stats.ar.converted
-        statsHpEl.textContent = data.beatmap.stats.hp.converted
-        statsBpmEl.textContent = data.beatmap.stats.bpm.common
-        statsCsEl.textContent = data.beatmap.stats.cs.converted
-        statsOdEl.textContent = data.beatmap.stats.od.converted
+        setStats({
+            sr: data.beatmap.stats.stars.total,
+            len: Math.round((data.beatmap.time.lastObject - data.beatmap.time.firstObject) / 1000),
+            ar: data.beatmap.stats.ar.converted,
+            hp: data.beatmap.stats.hp.converted,
+            bpm: data.beatmap.stats.bpm.common,
+            cs: data.beatmap.stats.cs.converted,
+            od: data.beatmap.stats.od.converted
+        })
     }
 
     // Update scores
@@ -175,6 +178,17 @@ socket.onmessage = event => {
             iframe.style.bottom = "0px"
         }
     }
+}
+
+// Set number stats
+function setStats({sr, len, ar, hp, bpm, cs, od}) {
+    statsSrEl.textContent = `${sr}*`
+    statsLengthEl.textContent = setLengthDisplay(len)
+    statsArEl.textContent = ar
+    statsHpEl.textContent = hp
+    statsBpmEl.textContent = bpm
+    statsCsEl.textContent = cs
+    statsOdEl.textContent = od
 }
 
 // Set flag and team name
