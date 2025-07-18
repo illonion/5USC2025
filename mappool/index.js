@@ -730,7 +730,7 @@ const pick_to_transition_delay_ms = 10000;
 let enableAutoAdvance = false
 const gameplay_scene_name = "Gameplay"
 const mappool_scene_name = "Mappool"
-const winner_scene_name = "Winner"
+const winner_scene_name = "Team Win"
 
 let sceneTransitionTimeoutID
 
