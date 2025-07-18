@@ -4,11 +4,11 @@
 
 @font-face {
     font-family: "04B_30";
-    src: url("../../font/04B_30__.woff2");
+    src: url("../font/04B_30__.woff2");
 }
 @font-face {
     font-family: "Dogica";
-    src: url("../../font/dogica.woff2");
+    src: url("../font/dogica.woff2");
     font-weight: 400;
 }
 
