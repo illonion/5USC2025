@@ -58,17 +58,12 @@ function createStars(side, starCount) {
     const fragment = document.createDocumentFragment()
     for (let i = 0; i < currentFirstTo; i++) {
         const isFilled = i < starCount
-        if (i !== currentFirstTo - 1) {
-            const image = document.createElement("img")
-            image.classList.add(`team-star-bo${currentBestOf}-${i + 1}`)
-            image.setAttribute("src", `../_shared/assets/points/small_star_${side}_${isFilled? "fill" : "empty"}.png`)
-            fragment.append(image)
-        } else {
-            const image = document.createElement("img")
-            image.classList.add(`team-star-middle`)
-            image.setAttribute("src", `../_shared/assets/points/big_star_${side}_${isFilled? "fill" : "empty"}.png`)
-            fragment.append(image)
-        }
+
+        // Create image
+        const image = document.createElement("img")
+        image.classList.add(`team-star-bo${currentBestOf}-${i + 1}`)
+        image.setAttribute("src", `../_shared/assets/points/${i !== currentFirstTo - 1? "small" : "big"}_star_${side}_${isFilled? "fill" : "empty"}.png`)
+        fragment.append(image)
     }
     return fragment
 }
@@ -167,10 +162,13 @@ async function mapClickEvent(event) {
 
         for (let i = 0; i < currentBanImageContainer.childElementCount; i++) {
             if (currentBanImageContainer.children[i].dataset.id !== undefined) continue
-            currentBanImageContainer.children[i].dataset.id = currentMapId
-            currentBanImageContainer.children[i].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
-            currentBanImageContainer.children[i].children[1].style.display = "block"
-            currentBanTextContainer.children[i].textContent = `${currentMap.mod}${currentMap.order}`
+            setBan(
+                currentBanImageContainer.children[i],
+                currentBanTextContainer.children[i],
+                currentMapId,
+                currentMap,
+                i
+            )
             break
         }
     }
@@ -180,10 +178,7 @@ async function mapClickEvent(event) {
         const currentMapooolContainer = team === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
         for (let i = 0; i < currentMapooolContainer.childElementCount; i++) {
             if (currentMapooolContainer.children[i].dataset.id !== undefined) continue
-            currentMapooolContainer.children[i].dataset.id = currentMapId
-            currentMapooolContainer.children[i].children[0].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
-            currentMapooolContainer.children[i].children[1].style.backgroundColor = team === "left" ? "#CC4E4E" : "#1C4C8F"
-            currentMapooolContainer.children[i].children[1].textContent = `${currentMap.mod}${currentMap.order}`
+            setPick(currentMapooolContainer.children[i], currentMapId, currentMap, team)
             currentPickedTile = currentMapooolContainer.children[i]
             break
         }
@@ -200,6 +195,30 @@ async function mapClickEvent(event) {
             })
         }
     }
+}
+
+// Set Ban
+function setBan(banTile, textTile, id, mapObject, tileNumber) {
+    banTile.dataset.id = id
+    banTile.style.backgroundImage =  `url("https://assets.ppy.sh/beatmaps/${mapObject.beatmapset_id}/covers/cover.jpg")`
+    banTile.children[1].style.display = "block"
+    textTile.children[tileNumber].textContent = `${mapObject.mod}${mapObject.order}`
+}
+
+// Set Pick
+function setPick(pickTile, id, currentMap, team) {
+    pickTile.dataset.id = id
+    pickTile.children[0].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+    pickTile.children[1].style.backgroundColor = team === "left" ? "#CC4E4E" : "#1C4C8F"
+    pickTile.children[1].textContent = `${currentMap.mod}${currentMap.order}`
+}
+
+// Set winner
+function setWinner(tile, teamWinner, teamLoser) {
+    tile.children[0].children[0].classList.add(`${teamWinner}-win-overlay`)
+    tile.children[0].children[0].classList.remove(`${teamLoser}-win-overlay`)
+    tile.children[2].style.display = "block"
+    tile.children[2].setAttribute("src", `static/${teamWinner === "left"? "red" : "blue"}-crown.png`)
 }
 
 // Team Inforamtion
@@ -305,12 +324,7 @@ socket.onmessage = event => {
             updateStarCount(winner, "plus")
             
             // Set background to winning map
-            if (currentMappoolBeatmap && currentPickedTile) {
-                currentPickedTile.children[0].children[0].classList.add(`${winner}-win-overlay`)
-                currentPickedTile.children[0].children[0].classList.remove(`${loser}-win-overlay`)
-                currentPickedTile.children[2].setAttribute("src", `static/${winner === "left"? "red" : "blue"}-crown.png`)
-                currentPickedTile.children[2].style.display = "block"
-            }
+            if (currentMappoolBeatmap && currentPickedTile) setWinner(currentPickedTile, winner, loser)
         }
 
         // Non results screen
@@ -320,23 +334,16 @@ socket.onmessage = event => {
             // If no winners yet, then go to mappool scene
             // If winners, then go to winner scene
             // Generally this triggers when enableAutoAdvance is turned on and ipcState === 1 (from results screen)
-            if (previousIpcState === 4 &&
-                currentIpcState !== previousIpcState &&
-                enableAutoAdvance &&
-                currentStarLeft !== currentFirstTo &&
-                currentStarRight !== currentFirstTo
-            ) {
+            if (previousIpcState === 4 && 
+                currentIpcState !== previousIpcState && 
+                enableAutoAdvance) {
+                
+                const targetScene = (currentStarLeft === currentFirstTo || currentStarRight === currentFirstTo) 
+                    ? winner_scene_name 
+                    : mappool_scene_name
+
                 obsGetCurrentScene((scene) => {
-                    if (scene.name === mappool_scene_name) return
-                    obsSetCurrentScene(mappool_scene_name)
-                })
-            } else if (previousIpcState === 4 &&
-                currentIpcState !== previousIpcState &&
-                enableAutoAdvance
-            ) {
-                obsGetCurrentScene((scene) => {
-                    if (scene.name === winner_scene_name) return
-                    obsSetCurrentScene(winner_scene_name)
+                    if (scene.name !== targetScene) obsSetCurrentScene(targetScene)
                 })
             }
         }
@@ -396,6 +403,13 @@ function setNextPicker(pickerTeam) {
     nextPickerEl.textContent = pickerTeam === "left" ? "RED" : "BLUE"
 }
 
+// Create h2 title
+function createH2Title(text) {
+    const h2 = document.createElement("h2")
+    h2.textContent = text
+    return h2
+}
+
 // Mappool override section
 const mappoolOverrideColumnEl = document.getElementById("mappool-override-column")
 const mappoolOverrideActionSelectEl = document.getElementById("mappool-override-action-select")
@@ -407,38 +421,45 @@ function mappoolOverrideChangeAction() {
         mappoolOverrideColumnEl.lastChild.remove()
     }
 
-    // Set Ban
-    if (mappoolOverrideAction === "setBan" || mappoolOverrideAction === "removeBan") {
-        // Create h2 for which ban
-        const whichBanH2 = document.createElement("h2")
-        whichBanH2.textContent = "Which Ban?"
-        mappoolOverrideColumnEl.append(whichBanH2)
+    if (mappoolOverrideAction === "setBan" || mappoolOverrideAction === "removeBan" ||
+        mappoolOverrideAction === "setPick" || mappoolOverrideAction === "removePick" ||
+        mappoolOverrideAction === "setWinner" || mappoolOverrideAction === "removeWinner"
+    ) {
+        const action = (mappoolOverrideAction === "setBan" || mappoolOverrideAction === "removeBan") ? "Ban" : "Pick"
 
-        // Select Ban
-        const whichBanSelect = document.createElement("select")
-        whichBanSelect.classList.add("mappool-override-select")
-        whichBanSelect.setAttribute("onchange", "setMappoolOverrideInformation()")
-        whichBanSelect.setAttribute("id", "which-action-select")
-        whichBanSelect.setAttribute("size", "4")
-        for (let i = 0; i < 2; i++) {
-            // Create red ban option
-            const redBanOption = document.createElement("option")
-            redBanOption.setAttribute("value",`left|ban|${i}`)
-            redBanOption.textContent = `Red Ban ${i + 1}`
+        // Create h2 for which action or pick
+        mappoolOverrideColumnEl.append(createH2Title(`Which ${action}?`))
 
-            const blueBanOption = document.createElement("option")
-            blueBanOption.setAttribute("value",`right|ban|${i}`)
-            blueBanOption.textContent = `Blue Ban ${i + 1}`
+        // Create select
+        const actionsPerTeam = action === "Ban" ? 2 : mappoolContainerLeftEl.childElementCount
+        const whichActionSelect = document.createElement("select")
+        whichActionSelect.classList.add("mappool-override-select")
+        whichActionSelect.setAttribute("onchange", "setMappoolOverrideInformation()")
+        whichActionSelect.setAttribute("id", "which-action-select")
+        whichActionSelect.setAttribute("size", `${actionsPerTeam * 2}`)
+    
+        // Create options
+        for (let i = 0; i < actionsPerTeam; i++) {
+            // Create red option
+            const redOption = document.createElement("option")
+            redOption.setAttribute("value", `left|${i}`)
+            redOption.textContent = `Red ${action} ${i + 1}`
 
-            whichBanSelect.append(redBanOption, blueBanOption)
+            // Create blue option
+            const blueOption = document.createElement("option")
+            blueOption.setAttribute("value", `right|${i}`)
+            blueOption.textContent = `Blue ${action} ${i + 1}`
+
+            whichActionSelect.append(redOption, blueOption)
         }
-        mappoolOverrideColumnEl.append(whichBanSelect)
 
-        if (mappoolOverrideAction === "setBan") {
+        // Append select
+        mappoolOverrideColumnEl.append(whichActionSelect)
+
+        // Setting map
+        if (mappoolOverrideAction === "setBan" || mappoolOverrideAction === "setPick") {
             // Which Map
-            const whichBanMap = document.createElement("h2")
-            whichBanMap.textContent = "Which Map?"
-            mappoolOverrideColumnEl.append(whichBanMap)
+            mappoolOverrideColumnEl.append(createH2Title("Which Map?"))
 
             // Select all maps
             const mappoolOverrideBeatmapsContainer = document.createElement("div")
@@ -454,91 +475,12 @@ function mappoolOverrideChangeAction() {
                 mappoolOverrideColumnEl.append(mappoolOverrideBeatmapsContainer)
             }
         }
-    }
 
-    if (mappoolOverrideAction === "setPick" || mappoolOverrideAction === "removePick") {
-        // Create h2 for which ban
-        const whichBanH2 = document.createElement("h2")
-        whichBanH2.textContent = "Which Pick?"
-        mappoolOverrideColumnEl.append(whichBanH2)
-
-        // Select Pick
-        const whichPickSelect = document.createElement("select")
-        whichPickSelect.classList.add("mappool-override-select")
-        whichPickSelect.setAttribute("onchange", "setMappoolOverrideInformation()")
-        whichPickSelect.setAttribute("id", "which-action-select")
-        whichPickSelect.setAttribute("size", mappoolContainerLeftEl.childElementCount * 2)
-
-        for (let i = 0; i < mappoolContainerLeftEl.childElementCount; i++) {
-            // Create red ban option
-            const redPickOption = document.createElement("option")
-            redPickOption.setAttribute("value",`left|pick|${i}`)
-            redPickOption.textContent = `Red Pick ${i + 1}`
-
-            const bluePickOption = document.createElement("option")
-            bluePickOption.setAttribute("value",`right|pick|${i}`)
-            bluePickOption.textContent = `Blue Pick ${i + 1}`
-
-            whichPickSelect.append(redPickOption, bluePickOption)
-        }
-        mappoolOverrideColumnEl.append(whichPickSelect)
-
-        if (mappoolOverrideAction === "setPick") {
-            // Which Map
-            const whichBanMap = document.createElement("h2")
-            whichBanMap.textContent = "Which Map?"
-            mappoolOverrideColumnEl.append(whichBanMap)
-
-            // Select all maps
-            const mappoolOverrideBeatmapsContainer = document.createElement("div")
-            mappoolOverrideBeatmapsContainer.classList.add("mappool-override-beatmaps-container")
-
-            for (let i = 0; i < allBeatmaps.length; i++) {
-                const mappoolOverrideBeatmaps = document.createElement("div")
-                mappoolOverrideBeatmaps.classList.add("mappool-override-beatmaps")
-                mappoolOverrideBeatmaps.textContent = `${allBeatmaps[i].mod}${allBeatmaps[i].order}`
-                mappoolOverrideBeatmaps.setAttribute("id", allBeatmaps[i].beatmap_id)
-                mappoolOverrideBeatmaps.addEventListener("click", mappoolOverrideSelectMap)
-                mappoolOverrideBeatmapsContainer.append(mappoolOverrideBeatmaps)
-                mappoolOverrideColumnEl.append(mappoolOverrideBeatmapsContainer)
-            }
-        }
-    }
-
-    // Set Winner
-    if (mappoolOverrideAction === "setWinner" || mappoolOverrideAction === "removeWinner") {
-        // Create h2 for which ban
-        const whichBanH2 = document.createElement("h2")
-        whichBanH2.textContent = "Which Pick?"
-        mappoolOverrideColumnEl.append(whichBanH2)
-
-        // Select Pick
-        const whichPickSelect = document.createElement("select")
-        whichPickSelect.classList.add("mappool-override-select")
-        whichPickSelect.setAttribute("onchange", "setMappoolOverrideInformation()")
-        whichPickSelect.setAttribute("id", "which-action-select")
-        whichPickSelect.setAttribute("size", mappoolContainerLeftEl.childElementCount * 2)
-
-        for (let i = 0; i < mappoolContainerLeftEl.childElementCount; i++) {
-            // Create red ban option
-            const redPickOption = document.createElement("option")
-            redPickOption.setAttribute("value",`left|pick|${i}`)
-            redPickOption.textContent = `Red Pick ${i + 1}`
-
-            const bluePickOption = document.createElement("option")
-            bluePickOption.setAttribute("value",`right|pick|${i}`)
-            bluePickOption.textContent = `Blue Pick ${i + 1}`
-
-            whichPickSelect.append(redPickOption, bluePickOption)
-        }
-        mappoolOverrideColumnEl.append(whichPickSelect)
-
+        // Setting team
         if (mappoolOverrideAction === "setWinner") {
-            // Which Team
-            const whichBanMap = document.createElement("h2")
-            whichBanMap.textContent = "Which Team?"
-            mappoolOverrideColumnEl.append(whichBanMap)
-
+            // Which Map
+            mappoolOverrideColumnEl.append(createH2Title("Which Team?"))
+        
             // Select Team
             const whichPickSelect = document.createElement("select")
             whichPickSelect.classList.add("mappool-override-select")
@@ -589,9 +531,9 @@ function mappoolOverrideChangeAction() {
 }
 
 // Set Mappool Override Information
-let mappoolOverrideTeam, mappoolOverrideAction, mappoolOverrideTileNumber
+let mappoolOverrideTeam, mappoolOverrideTileNumber
 function setMappoolOverrideInformation() {
-    [mappoolOverrideTeam, mappoolOverrideAction, mappoolOverrideTileNumber] = document.getElementById("which-action-select").value.split("|")
+    [mappoolOverrideTeam, mappoolOverrideTileNumber] = document.getElementById("which-action-select").value.split("|")
 }
 
 // Mappool Override Select Map
@@ -609,7 +551,7 @@ function mappoolOverrideSelectMap() {
 
 // Mappool Override Set Ban
 function mappoolOverrideSetBan() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
+    if (!mappoolOverrideTeam || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
 
     // Get current map
     const currentMap = findBeatmaps(mappoolOverrideMap)
@@ -620,16 +562,18 @@ function mappoolOverrideSetBan() {
     const currentBanTextContainer = mappoolOverrideTeam === "left"? teamBanTextContainerLeftEl : teamBanTextContainerRightEl
 
     // Set information
-    const currentBanImage = currentBanImageContainer.children[mappoolOverrideTileNumber]
-    currentBanImage.dataset.id = mappoolOverrideMap
-    currentBanImage.style.backgroundImage =  `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
-    currentBanImage.children[1].style.display = "block"
-    currentBanTextContainer.children[mappoolOverrideTileNumber].textContent = `${currentMap.mod}${currentMap.order}`
+    setBan(
+        currentBanImageContainer.children[mappoolOverrideTileNumber],
+        currentBanTextContainer.children[mappoolOverrideTileNumber],
+        mappoolOverrideMap,
+        currentMap,
+        mappoolOverrideTileNumber
+    )
 }
 
 // Mappool Override Remove Ban
 function mappoolOverrideRemoveBan() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber) return
+    if (!mappoolOverrideTeam || !mappoolOverrideTileNumber) return
 
     // Get Containers
     const currentBanImageContainer = mappoolOverrideTeam === "left" ? teamBanImageContainerLeftEl : teamBanImageContainerRightEl
@@ -645,7 +589,7 @@ function mappoolOverrideRemoveBan() {
 
 // Mappool Override Set Pick
 function mappoolOverrideSetPick() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
+    if (!mappoolOverrideTeam || !mappoolOverrideTileNumber || !mappoolOverrideMap) return
 
     // Get current map
     const currentMap = findBeatmaps(mappoolOverrideMap)
@@ -655,15 +599,12 @@ function mappoolOverrideSetPick() {
     const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
     const currentTile = currentMapooolContainer.children[mappoolOverrideTileNumber]
 
-    currentTile.dataset.id = mappoolOverrideMap
-    currentTile.children[0].style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
-    currentTile.children[1].style.backgroundColor = mappoolOverrideTeam === "left" ? "#CC4E4E" : "#1C4C8F"
-    currentTile.children[1].textContent = `${currentMap.mod}${currentMap.order}`
+    setPick(currentTile, mappoolOverrideMap, currentMap,mappoolOverrideTeam)
 }
 
 // Mappool Override Remove Pick
 function mappoolOverrideRemovePick() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber) return
+    if (!mappoolOverrideTeam || !mappoolOverrideTileNumber) return
 
     // Set map information
     const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
@@ -678,7 +619,7 @@ function mappoolOverrideRemovePick() {
 
 // Set Mappool Override Team Winner
 function mappoolOverrideSetWinner() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber) return
+    if (!mappoolOverrideTeam || !mappoolOverrideTileNumber) return
     const teamWinner = document.getElementById("which-team-winner").value
     if (!teamWinner) return
     const teamLoser = teamWinner === "left" ? "right" : "left"
@@ -687,15 +628,12 @@ function mappoolOverrideSetWinner() {
     const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
     const currentTile = currentMapooolContainer.children[mappoolOverrideTileNumber]
 
-    currentTile.children[0].children[0].classList.add(`${teamWinner}-win-overlay`)
-    currentTile.children[0].children[0].classList.remove(`${teamLoser}-win-overlay`)
-    currentTile.children[2].style.display = "block"
-    currentTile.children[2].setAttribute("src", `static/${teamWinner === "left"? "red" : "blue"}-crown.png`)
+    setWinner(currentTile, teamWinner, teamLoser)
 }
 
 // Set Mappool Override Remove Winner
 function mappoolOverrideRemoveWinner() {
-    if (!mappoolOverrideTeam || !mappoolOverrideAction || !mappoolOverrideTileNumber) return
+    if (!mappoolOverrideTeam || !mappoolOverrideTileNumber) return
     // Set map information
     const currentMapooolContainer = mappoolOverrideTeam === "left" ? mappoolContainerLeftEl : mappoolContainerRightEl
     const currentTile = currentMapooolContainer.children[mappoolOverrideTileNumber]
