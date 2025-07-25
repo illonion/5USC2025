@@ -61,7 +61,8 @@ function createStars(side, starCount) {
 
         // Create image
         const image = document.createElement("img")
-        image.classList.add(`team-star-bo${currentBestOf}-${i + 1}`)
+        if (i !== currentFirstTo - 1) image.classList.add(`team-star-bo${currentBestOf}-${i + 1}`)
+        else image.classList.add(`team-star-middle`)
         image.setAttribute("src", `../_shared/assets/points/${i !== currentFirstTo - 1? "small" : "big"}_star_${side}_${isFilled? "fill" : "empty"}.png`)
         fragment.append(image)
     }
@@ -202,7 +203,7 @@ function setBan(banTile, textTile, id, mapObject, tileNumber) {
     banTile.dataset.id = id
     banTile.style.backgroundImage =  `url("https://assets.ppy.sh/beatmaps/${mapObject.beatmapset_id}/covers/cover.jpg")`
     banTile.children[1].style.display = "block"
-    textTile.children[tileNumber].textContent = `${mapObject.mod}${mapObject.order}`
+    textTile.textContent = `${mapObject.mod}${mapObject.order}`
 }
 
 // Set Pick

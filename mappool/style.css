@@ -337,7 +337,7 @@ video {
 =========================== */
 .mappool-container-tile {
     position: relative;
-    width: 226.8px;
+    width: 183.16px;
     height: 337px;
     border-radius: 12px;
     background-color: #2a2c30;
@@ -345,7 +345,7 @@ video {
 }
 .mappool-container-tiebreaker {
     position: relative;
-    width: 226.8px;
+    width: 183.16px;
     height: 724px;
     border-radius: 12px;
     background-color: #2a2c30;
