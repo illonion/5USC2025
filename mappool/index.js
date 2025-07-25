@@ -26,6 +26,9 @@ async function getBeatmaps() {
             break
     }
     currentFirstTo = Math.ceil(currentBestOf / 2)
+    document.cookie = `currentFirstTo=${currentFirstTo}; path=/`
+    document.cookie = `currentStarLeft=${currentStarLeft}; path=/`
+    document.cookie = `currentStarRight=${currentStarRight}; path=/`
 
     // Append stars
     teamStarContainerLeft.append(createStars("left", currentStarLeft))
@@ -107,6 +110,7 @@ let isStarToggled = true
 function toggleStars() {
     isStarToggled = !isStarToggled
     toggleStarsEl.innerText = `TOGGLE STARS: ${isStarToggled? "ON" : "OFF"}`
+    document.cookie = `isStarToggled=${isStarToggled}; path=/`
     if (!isStarToggled) {
         teamStarContainerLeft.style.display = "none"
         teamStarContainerRight.style.display = "none"
@@ -285,7 +289,11 @@ socket.onmessage = event => {
     // Set current scores
     if (currentIpcState === 2 || currentIpcState === 3) {
         // Auto switch to gameplay no matter what
-        obsSetCurrentScene(gameplay_scene_name)
+        // Nevermind
+        if (enableAutoAdvance) {
+            obsSetCurrentScene(gameplay_scene_name)
+        }
+        
 
         currentScoreLeft = 0
         currentScoreRight = 0

@@ -218,12 +218,13 @@ let currentFirstTo, previousFirstTo
 let currentStarLeft, previousStarLeft
 let currentStarRight, previousStarRight
 let currentPicker, previousPicker
+let isStarToggled
 setInterval(() => {
     // Set league name
     currentLeagueName = getCookie("leagueName")
     if (currentLeagueName !== previousLeagueName) {
         previousLeagueName = currentLeagueName
-        leagueNameEl.textContent = `${currentLeagueName} LEAGUE`
+        leagueNameEl.textContent = `${currentLeagueName.toUpperCase()} LEAGUE`
     }
 
     // Set stars
@@ -266,6 +267,16 @@ setInterval(() => {
         previousPicker = currentPicker
         setCurrentPicker(currentPicker)
     }
+
+    // Star toggling
+    isStarToggled = getCookie("isStarToggled")
+    if (isStarToggled === "true") {
+        leftTeamStarContainerEl.style.opacity = 1
+        rightTeamStarContainerEl.style.opacity = 1
+    } else {
+        leftTeamStarContainerEl.style.opacity = 0
+        rightTeamStarContainerEl.style.opacity = 0
+    }
 }, 200)
 
 // Set current picker
@@ -274,7 +285,6 @@ function setCurrentPicker(team) {
     const otherTeam = currentPickerTeam === "left" ? "right" : currentPickerTeam === "right" ? "left" : ""
     
     if (otherTeam === "") {
-        console.log("do we meet this condition")
         nowPlayingTopSectionEl.classList.remove(`now-playing-top-section-left`)
         nowPlayingTopSectionEl.classList.remove(`now-playing-top-section-right`)
         document.cookie = `currentPicker=""; path=/`

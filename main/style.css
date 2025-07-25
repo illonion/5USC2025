@@ -7,10 +7,6 @@
     src: url("../font/dogica.woff2");
     font-weight: 400;
 }
-@font-face {
-    font-family: "Ancient Egyptian Hieroglyphs";
-    src: url("../font/AncientEgyptianHieroglyphs.otf")
-}
 
 :root {
     --team-flag-horizontal-alignment: 16px;
@@ -102,7 +98,6 @@
     letter-spacing: 2px;
     transition: 500ms ease-in-out;
 }
-.league-name { font-family: "Ancient Egyptian Hieroglyphs" }
 
 /* ===========================
    Greenscreens
