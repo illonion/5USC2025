@@ -5,6 +5,8 @@
     --ban-container-border-left: -29px;
     --ban-container-colour-left: #CC4E4E;
     --ban-container-colour-right: #1C4C8F;
+
+    --mappool-container-tile-width: 151.14px;
 }
 
 @font-face {
@@ -308,7 +310,7 @@ video {
     top: 119px;
     left: 599px;
     display: flex;
-    gap: 35px;
+    gap: 30px;
     width: 1274px;
 }
 /* ===========================
@@ -321,14 +323,14 @@ video {
 }
 .mappool-mini-container {
     display: flex;
-    gap: 35px;
+    gap: 30px;
 }
 /* ===========================
    Tile
 =========================== */
 .mappool-container-tile {
     position: relative;
-    width: 183.16px;
+    width: var(--mappool-container-tile-width);
     height: 337px;
     border-radius: 12px;
     background-color: #2a2c30;
@@ -336,7 +338,7 @@ video {
 }
 .mappool-container-tiebreaker {
     position: relative;
-    width: 183.16px;
+    width: var(--mappool-container-tile-width);
     height: 724px;
     border-radius: 12px;
     background-color: #2a2c30;

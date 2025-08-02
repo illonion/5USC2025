@@ -140,7 +140,7 @@ socket.onmessage = event => {
     let currentScoreLeft = 0, currentScoreRight = 0
     for (let i = 0; i < data.tourney.clients.length; i++) {
         let currentScore = data.tourney.clients[i].play.score
-        if (currentBeatmap && currentBeatmap.EZMultiplier && data.tourney.clients[i].play.mods.name.includes("EZ")) currentScore *= currentBeatmap.EZMultiplier
+        if (currentBeatmap && currentBeatmap.EZMultiplier && data.tourney.clients[i].play.mods.name.includes("EZ")) currentScore *= currentBeatmap.EZMultiplier ?? 1.8
         if (data.tourney.clients[i].team === "left") currentScoreLeft += currentScore
         else currentScoreRight += currentScore
     }

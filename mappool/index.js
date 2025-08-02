@@ -294,7 +294,6 @@ socket.onmessage = event => {
             obsSetCurrentScene(gameplay_scene_name)
         }
         
-
         currentScoreLeft = 0
         currentScoreRight = 0
         
@@ -304,7 +303,7 @@ socket.onmessage = event => {
 
             // Set EZ Multiplier
             if (currentMappoolBeatmap && 
-                (currentMappoolBeatmap.mod === "FM" || currentMappoolBeatmap.mod === "EZ") &&
+                (currentMappoolBeatmap.mod === "FCM" || currentMappoolBeatmap.mod === "FM" || currentMappoolBeatmap.mod === "TB") &&
                 data.tourney.clients[i].play.mods.name.includes("EZ")
             ) {
                 currentScore *= currentMappoolBeatmap.EZMultiplier ?? 1.8
